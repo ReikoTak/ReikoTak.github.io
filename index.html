@@ -1,12 +1,77 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Taylor Swift's songs </title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lecteur de Musique</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      padding: 30px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .player {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    audio {
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      margin: 10px 0;
+      cursor: pointer;
+      color: #007acc;
+      text-decoration: underline;
+    }
+
+    li:hover {
+      color: #005999;
+    }
+  </style>
 </head>
 <body>
-  <h1>Welcome</h1>
-  <p>This site has for goal to have all of taytay's songs for free</p>
-  <p>Just so you know English is not my first language so tell me if you see errors</p>
+  <h1>🎵 Mon lecteur de musique</h1>
+  <div class="player">
+    <p>Clique sur un morceau pour l'écouter :</p>
+    <ul id="playlist">
+      <li data-src="assets/audio/I Know Places.m4a">I know places</li>
+      <li data-src="assets/audio/Blank Space.m4a">Blank space</li>
+    </ul>
+    <audio id="audioPlayer" controls>
+      <source src="assets/audio/I Know Places.m4a" type="audio/m4a" />
+      Ton navigateur ne supporte pas l'élément audio.
+    </audio>
+  </div>
+
+  <script>
+    const playlistItems = document.querySelectorAll('#playlist li');
+    const audioPlayer = document.getElementById('audioPlayer');
+
+    playlistItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const src = item.getAttribute('data-src');
+        audioPlayer.src = src;
+        audioPlayer.play();
+      });
+    });
+  </script>
 </body>
 </html>
