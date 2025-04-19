@@ -21,13 +21,13 @@
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       padding: 20px;
-      max-width: 500px;
+      max-width: 600px;
       margin: 20px auto;
     }
 
     audio {
       width: 100%;
-      margin-top: 20px;
+      margin-top: 30px;
     }
 
     ul {
@@ -49,33 +49,7 @@
 </head>
 <body>
   <h1>🎵 Taylor Swift 🎵</h1>
-
-  <div class="album">
-    <h2>Album 1: 1989</h2>
-    <p>Cliquez sur la chanson que vous souhaitez écouter :</p>
-    <ul class="playlist" data-album="1989">
-      <li data-src="assets/audio/I Know Places.mp3">I Know Places</li>
-      <li data-src="assets/audio/Blank Space.mp3">Blank Space</li>
-    </ul>
-  </div>
-
-  <div class="album">
-    <h2>Album 2: Lover</h2>
-    <p>Cliquez sur la chanson que vous souhaitez écouter :</p>
-    <ul class="playlist" data-album="Lover">
-      <li data-src="assets/audio/Lover.mp3">Lover</li>
-      <li data-src="assets/audio/Mistress.mp3">The Man</li>
-    </ul>
-  </div>
-
-  <div class="album">
-    <h2>Album 3: Folklore</h2>
-    <p>Cliquez sur la chanson que vous souhaitez écouter :</p>
-    <ul class="playlist" data-album="Folklore">
-      <li data-src="assets/audio/exile.mp3">Exile (feat. Bon Iver)</li>
-      <li data-src="assets/audio/cardigan.mp3">Cardigan</li>
-    </ul>
-  </div>
+  <div id="albums-container"></div>
 
   <audio id="audioPlayer" controls>
     <source src="" type="audio/mp3" />
@@ -83,14 +57,126 @@
   </audio>
 
   <script>
-    const audioPlayer = document.getElementById('audioPlayer');
-    
-    document.querySelectorAll('.playlist li').forEach(item => {
-      item.addEventListener('click', () => {
-        const src = item.getAttribute('data-src');
-        audioPlayer.src = src;
-        audioPlayer.play();
+    const albums = [
+      {
+        title: "Taylor Swift (2006)",
+        songs: [
+          { title: "Tim McGraw", src: "assets/audio/Tim McGraw.mp3" },
+          { title: "Teardrops on My Guitar", src: "assets/audio/Teardrops on My Guitar.mp3" },
+          { title: "Our Song", src: "assets/audio/Our Song.mp3" }
+        ]
+      },
+      {
+        title: "Fearless",
+        songs: [
+          { title: "Love Story", src: "assets/audio/Love Story.mp3" },
+          { title: "You Belong With Me", src: "assets/audio/You Belong With Me.mp3" },
+          { title: "Fifteen", src: "assets/audio/Fifteen.mp3" }
+        ]
+      },
+      {
+        title: "Speak Now",
+        songs: [
+          { title: "Mine", src: "assets/audio/Mine.mp3" },
+          { title: "Back to December", src: "assets/audio/Back to December.mp3" },
+          { title: "Enchanted", src: "assets/audio/Enchanted.mp3" }
+        ]
+      },
+      {
+        title: "Red",
+        songs: [
+          { title: "Red", src: "assets/audio/Red.mp3" },
+          { title: "I Knew You Were Trouble", src: "assets/audio/I Knew You Were Trouble.mp3" },
+          { title: "All Too Well", src: "assets/audio/All Too Well.mp3" }
+        ]
+      },
+      {
+        title: "1989",
+        songs: [
+          { title: "Blank Space", src: "assets/audio/Blank Space.mp3" },
+          { title: "Style", src: "assets/audio/Style.mp3" },
+          { title: "Shake It Off", src: "assets/audio/Shake It Off.mp3" }
+        ]
+      },
+      {
+        title: "Reputation",
+        songs: [
+          { title: "Look What You Made Me Do", src: "assets/audio/Look What You Made Me Do.mp3" },
+          { title: "Delicate", src: "assets/audio/Delicate.mp3" },
+          { title: "…Ready for It?", src: "assets/audio/Ready for It.mp3" }
+        ]
+      },
+      {
+        title: "Lover",
+        songs: [
+          { title: "Lover", src: "assets/audio/Lover.mp3" },
+          { title: "Cruel Summer", src: "assets/audio/Cruel Summer.mp3" },
+          { title: "The Man", src: "assets/audio/The Man.mp3" }
+        ]
+      },
+      {
+        title: "Folklore",
+        songs: [
+          { title: "Cardigan", src: "assets/audio/cardigan.mp3" },
+          { title: "Exile (feat. Bon Iver)", src: "assets/audio/exile.mp3" },
+          { title: "August", src: "assets/audio/august.mp3" }
+        ]
+      },
+      {
+        title: "Evermore",
+        songs: [
+          { title: "Willow", src: "assets/audio/Willow.mp3" },
+          { title: "Champagne Problems", src: "assets/audio/Champagne Problems.mp3" },
+          { title: "No Body, No Crime", src: "assets/audio/No Body No Crime.mp3" }
+        ]
+      },
+      {
+        title: "Midnights",
+        songs: [
+          { title: "Anti-Hero", src: "assets/audio/Anti-Hero.mp3" },
+          { title: "Bejeweled", src: "assets/audio/Bejeweled.mp3" },
+          { title: "Lavender Haze", src: "assets/audio/Lavender Haze.mp3" }
+        ]
+      },
+      {
+        title: "The Tortured Poets Department",
+        songs: [
+          { title: "Fortnight", src: "assets/audio/Fortnight.mp3" },
+          { title: "Florida!!!", src: "assets/audio/Florida.mp3" },
+          { title: "So Long, London", src: "assets/audio/So Long London.mp3" }
+        ]
+      }
+    ];
+
+    const container = document.getElementById("albums-container");
+    const audioPlayer = document.getElementById("audioPlayer");
+
+    albums.forEach(album => {
+      const albumDiv = document.createElement("div");
+      albumDiv.classList.add("album");
+
+      const title = document.createElement("h2");
+      title.textContent = `Album : ${album.title}`;
+      albumDiv.appendChild(title);
+
+      const instruction = document.createElement("p");
+      instruction.textContent = "Cliquez sur la chanson que vous souhaitez écouter :";
+      albumDiv.appendChild(instruction);
+
+      const ul = document.createElement("ul");
+      album.songs.forEach(song => {
+        const li = document.createElement("li");
+        li.textContent = song.title;
+        li.setAttribute("data-src", song.src);
+        li.addEventListener("click", () => {
+          audioPlayer.src = song.src;
+          audioPlayer.play();
+        });
+        ul.appendChild(li);
       });
+
+      albumDiv.appendChild(ul);
+      container.appendChild(albumDiv);
     });
   </script>
 </body>
