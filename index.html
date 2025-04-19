@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Taylor Swift's songs</title>
+  <title>Les chansons de Taylor Swift</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -16,13 +16,13 @@
       color: #333;
     }
 
-    .player {
+    .album {
       background: white;
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       padding: 20px;
       max-width: 500px;
-      margin: 0 auto;
+      margin: 20px auto;
     }
 
     audio {
@@ -49,23 +49,43 @@
 </head>
 <body>
   <h1>🎵 Taylor Swift 🎵</h1>
-  <div class="player">
-    <p>Click on the song that you want to listen to :</p>
-    <ul id="playlist">
-      <li data-src="assets/audio/I Know Places.mp3">I know places</li>
-      <li data-src="assets/audio/Blank Space.mp3">Blank space</li>
+
+  <div class="album">
+    <h2>Album 1: 1989</h2>
+    <p>Cliquez sur la chanson que vous souhaitez écouter :</p>
+    <ul class="playlist" data-album="1989">
+      <li data-src="assets/audio/I Know Places.mp3">I Know Places</li>
+      <li data-src="assets/audio/Blank Space.mp3">Blank Space</li>
     </ul>
-    <audio id="audioPlayer" controls>
-      <source src="assets/audio/I Know Places.mp3" type="audio/mp3" />
-      Ton navigateur ne supporte pas l'élément audio.
-    </audio>
   </div>
 
-  <script>
-    const playlistItems = document.querySelectorAll('#playlist li');
-    const audioPlayer = document.getElementById('audioPlayer');
+  <div class="album">
+    <h2>Album 2: Lover</h2>
+    <p>Cliquez sur la chanson que vous souhaitez écouter :</p>
+    <ul class="playlist" data-album="Lover">
+      <li data-src="assets/audio/Lover.mp3">Lover</li>
+      <li data-src="assets/audio/Mistress.mp3">The Man</li>
+    </ul>
+  </div>
 
-    playlistItems.forEach(item => {
+  <div class="album">
+    <h2>Album 3: Folklore</h2>
+    <p>Cliquez sur la chanson que vous souhaitez écouter :</p>
+    <ul class="playlist" data-album="Folklore">
+      <li data-src="assets/audio/exile.mp3">Exile (feat. Bon Iver)</li>
+      <li data-src="assets/audio/cardigan.mp3">Cardigan</li>
+    </ul>
+  </div>
+
+  <audio id="audioPlayer" controls>
+    <source src="" type="audio/mp3" />
+    Ton navigateur ne supporte pas l'élément audio.
+  </audio>
+
+  <script>
+    const audioPlayer = document.getElementById('audioPlayer');
+    
+    document.querySelectorAll('.playlist li').forEach(item => {
       item.addEventListener('click', () => {
         const src = item.getAttribute('data-src');
         audioPlayer.src = src;
