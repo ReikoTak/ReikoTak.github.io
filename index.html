@@ -4,255 +4,52 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Taylor Swift - Discographie</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --primary: #e74c3c;
-      --secondary: #3498db;
-      --dark: #2c3e50;
-      --light: #ecf0f1;
-      --accent: #f1c40f;
+    body { font-family: sans-serif; background: #f5f7fa; padding: 20px; color: #2c3e50; }
+    h1 { color: #e74c3c; }
+    .album { margin-bottom: 30px; }
+    .song { cursor: pointer; margin: 5px 0; color: #3498db; }
+    .song:hover { text-decoration: underline; }
+    .lyrics-modal {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      display: flex; align-items: center; justify-content: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0s, opacity 0.3s;
     }
-    
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    .lyrics-modal.show {
+      visibility: visible;
+      opacity: 1;
     }
-    
-    body {
-      font-family: 'Montserrat', sans-serif;
-      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-      min-height: 100vh;
-      padding: 40px 20px;
-      color: var(--dark);
-      line-height: 1.6;
+    .lyrics-content {
+      background: white; padding: 20px; border-radius: 10px; max-width: 500px;
+      max-height: 80vh; overflow-y: auto;
     }
-    
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    
-    header {
-      text-align: center;
-      margin-bottom: 40px;
-      position: relative;
-    }
-    
-    h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 3.5rem;
-      color: var(--primary);
-      margin-bottom: 10px;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-    }
-    
-    .subtitle {
-      font-size: 1.2rem;
-      color: var(--dark);
-      opacity: 0.8;
-      margin-bottom: 20px;
-    }
-    
-    .divider {
-      height: 4px;
-      width: 100px;
-      background: linear-gradient(to right, var(--primary), var(--secondary));
-      margin: 0 auto 30px;
-      border-radius: 2px;
-    }
-    
-    .albums-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: 30px;
-      margin-bottom: 40px;
-    }
-    
-    .album-card {
-      background: white;
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    
-    .album-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-    }
-    
-    .album-header {
-      color: white;
-      padding: 20px;
-      position: relative;
-    }
-    
-    .album-year {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      background: rgba(255,255,255,0.2);
-      padding: 5px 10px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 600;
-    }
-    
-    .album-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
-      margin-bottom: 5px;
-    }
-    
-    .album-songs {
-      padding: 20px;
-      max-height: 300px;
-      overflow-y: auto;
-    }
-    
-    .song-list {
-      list-style: none;
-    }
-    
-    .song-item {
-      padding: 12px 15px;
-      border-bottom: 1px solid rgba(0,0,0,0.05);
-      cursor: pointer;
-      transition: background 0.2s ease;
-      display: flex;
-      align-items: center;
-    }
-    
-    .song-item:last-child {
-      border-bottom: none;
-    }
-    
-    .song-item:hover {
-      background: rgba(231, 76, 60, 0.1);
-    }
-    
-    .song-item.active {
-      background: rgba(231, 76, 60, 0.2);
-      font-weight: 600;
-    }
-    
-    .song-number {
-      color: var(--primary);
-      font-weight: 600;
-      margin-right: 15px;
-      min-width: 25px;
-    }
-    
-    .player-container {
-      background: white;
-      border-radius: 15px;
-      padding: 25px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      margin-top: 30px;
-      position: sticky;
-      bottom: 20px;
-    }
-    
-    .now-playing {
-      display: flex;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-    
-    .now-playing-info {
-      flex-grow: 1;
-    }
-    
-    .now-playing-title {
-      font-weight: 700;
-      font-size: 1.2rem;
-      color: var(--primary);
-    }
-    
-    .now-playing-album {
-      font-size: 0.9rem;
-      opacity: 0.8;
-    }
-    
-    audio {
-      width: 100%;
-      border-radius: 10px;
-    }
-    
-    audio::-webkit-media-controls-panel {
-      background: var(--light);
-    }
-    
-    /* Scrollbar styling */
-    .album-songs::-webkit-scrollbar {
-      width: 8px;
-    }
-    
-    .album-songs::-webkit-scrollbar-track {
-      background: rgba(0,0,0,0.05);
-      border-radius: 10px;
-    }
-    
-    .album-songs::-webkit-scrollbar-thumb {
-      background: var(--primary);
-      border-radius: 10px;
-    }
-    
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 2.5rem;
-      }
-      
-      .albums-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .player-container {
-        position: static;
-        margin-bottom: 20px;
-      }
-    }
+    .close-btn { float: right; cursor: pointer; font-size: 1.5rem; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>Taylor Swift</h1>
-      <p class="subtitle">Discographie complète</p>
-      <div class="divider"></div>
-    </header>
-    
-    <main>
-      <div class="albums-grid" id="albums-container"></div>
-      
-      <div class="player-container">
-        <div class="now-playing">
-          <div class="now-playing-info">
-            <div class="now-playing-title" id="now-playing-title">Sélectionnez une chanson</div>
-            <div class="now-playing-album" id="now-playing-album"></div>
-          </div>
-        </div>
-        <audio id="audioPlayer" controls>
-          <source src="" type="audio/mp3" />
-          Votre navigateur ne supporte pas l'élément audio.
-        </audio>
-      </div>
-    </main>
-  </div>
 
-  <div class="lyrics-modal" id="lyricsModal">
+  <h1>Taylor Swift - Discographie</h1>
+
+  <div id="albums-container"></div>
+
+  <h2>Lecteur audio</h2>
+  <div id="now-playing">Sélectionnez une chanson</div>
+  <audio id="audioPlayer" controls>
+    <source src="" type="audio/mp3">
+    Votre navigateur ne supporte pas l'audio.
+  </audio>
+
+  <!-- Modal pour les paroles -->
+  <div id="lyricsModal" class="lyrics-modal">
     <div class="lyrics-content">
-      <button class="close-lyrics" id="closeLyrics">&times;</button>
-      <h2 class="lyrics-title" id="lyricsTitle"></h2>
-      <div class="lyrics-album" id="lyricsAlbum"></div>
-      <div class="lyrics-text" id="lyricsText"></div>
+      <span class="close-btn" id="closeLyrics">&times;</span>
+      <h2 id="lyricsTitle"></h2>
+      <pre id="lyricsText"></pre>
     </div>
   </div>
-
   <script>
     const albums = [
       {
@@ -497,119 +294,65 @@
       }
     ];
 
-    const container = document.getElementById("albums-container");
-    const audioPlayer = document.getElementById("audioPlayer");
-    const nowPlayingTitle = document.getElementById("now-playing-title");
-    const nowPlayingAlbum = document.getElementById("now-playing-album");
-    
-    let currentSong = null;
-    let currentAlbum = null;
+    const albumsContainer = document.getElementById('albums-container');
+    const audioPlayer = document.getElementById('audioPlayer');
+    const nowPlaying = document.getElementById('now-playing');
 
-    // Helper function to darken a color
-    function darkenColor(color, percent) {
-      const num = parseInt(color.replace("#", ""), 16);
-      const amt = Math.round(2.55 * percent);
-      const R = Math.max((num >> 16) - amt, 0);
-      const G = Math.max((num >> 8 & 0x00FF) - amt, 0);
-      const B = Math.max((num & 0x0000FF) - amt, 0);
-      
-      return "#" + (
-        0x1000000 +
-        (R < 255 ? R : 255) * 0x10000 +
-        (G < 255 ? G : 255) * 0x100 +
-        (B < 255 ? B : 255)
-      ).toString(16).slice(1);
+    const lyricsModal = document.getElementById('lyricsModal');
+    const lyricsTitle = document.getElementById('lyricsTitle');
+    const lyricsText = document.getElementById('lyricsText');
+    const closeLyrics = document.getElementById('closeLyrics');
+
+    closeLyrics.addEventListener('click', () => {
+      lyricsModal.classList.remove('show');
+    });
+
+    function renderAlbums() {
+      albums.forEach(album => {
+        const albumDiv = document.createElement('div');
+        albumDiv.className = 'album';
+
+        const albumTitle = document.createElement('h2');
+        albumTitle.textContent = `${album.title} (${album.year})`;
+        albumDiv.appendChild(albumTitle);
+
+        album.songs.forEach((song, index) => {
+          const songDiv = document.createElement('div');
+          songDiv.className = 'song';
+          songDiv.textContent = `${index + 1}. ${song.title}`;
+          
+          songDiv.addEventListener('click', () => {
+            playSong(song);
+            showLyrics(song);
+          });
+
+          albumDiv.appendChild(songDiv);
+        });
+
+        albumsContainer.appendChild(albumDiv);
+      });
     }
 
-    // Create album cards
-    albums.forEach(album => {
-      const albumCard = document.createElement("div");
-      albumCard.classList.add("album-card");
-      
-      // Album header with gradient
-      const albumHeader = document.createElement("div");
-      albumHeader.classList.add("album-header");
-      albumHeader.style.background = `linear-gradient(135deg, ${album.color}, ${darkenColor(album.color, 20)})`;
-      
-      const albumYear = document.createElement("div");
-      albumYear.classList.add("album-year");
-      albumYear.textContent = album.year;
-      
-      const albumTitle = document.createElement("h2");
-      albumTitle.classList.add("album-title");
-      albumTitle.textContent = album.title;
-      
-      albumHeader.appendChild(albumYear);
-      albumHeader.appendChild(albumTitle);
-      
-      // Songs list
-      const albumSongs = document.createElement("div");
-      albumSongs.classList.add("album-songs");
-      
-      const songList = document.createElement("ul");
-      songList.classList.add("song-list");
-      
-      album.songs.forEach((song, index) => {
-        const songItem = document.createElement("li");
-        songItem.classList.add("song-item");
-        songItem.dataset.album = album.title;
-        songItem.dataset.src = song.src;
-        
-        const songNumber = document.createElement("span");
-        songNumber.classList.add("song-number");
-        songNumber.textContent = (index + 1).toString().padStart(2, '0');
-        
-        const songTitle = document.createTextNode(song.title);
-        
-        songItem.appendChild(songNumber);
-        songItem.appendChild(songTitle);
-        
-        songItem.addEventListener("click", () => {
-          // Remove active class from all songs
-          document.querySelectorAll(".song-item").forEach(item => {
-            item.classList.remove("active");
-          });
-          
-          // Add active class to clicked song
-          songItem.classList.add("active");
-          
-          // Play song
-          audioPlayer.src = song.src;
-          audioPlayer.play().catch(e => console.error("Erreur de lecture:", e));
-          
-          // Update now playing info
-          nowPlayingTitle.textContent = song.title;
-          nowPlayingAlbum.textContent = `${album.title} (${album.year})`;
-          
-          currentSong = song.title;
-          currentAlbum = album.title;
-        });
-        
-        songList.appendChild(songItem);
-      });
-      
-      albumSongs.appendChild(songList);
-      albumCard.appendChild(albumHeader);
-      albumCard.appendChild(albumSongs);
-      container.appendChild(albumCard);
-    });
-    
-    // Update player when song ends
-    audioPlayer.addEventListener("ended", () => {
-      if (currentSong && currentAlbum) {
-        const currentAlbumObj = albums.find(a => a.title === currentAlbum);
-        if (currentAlbumObj) {
-          const currentIndex = currentAlbumObj.songs.findIndex(s => s.title === currentSong);
-          if (currentIndex < currentAlbumObj.songs.length - 1) {
-            const nextSong = currentAlbumObj.songs[currentIndex + 1];
-            const nextSongElement = document.querySelector(`.song-item[data-src="${nextSong.src}"]`);
-            if (nextSongElement) {
-              nextSongElement.click();
-            }
-          }
-        }
+    function playSong(song) {
+      audioPlayer.src = song.src;
+      audioPlayer.play();
+      nowPlaying.textContent = `Lecture: ${song.title}`;
+    }
+
+    function showLyrics(song) {
+      if (song.lyrics) {
+        lyricsTitle.textContent = song.title;
+        lyricsText.textContent = song.lyrics;
+        lyricsModal.classList.add('show');
+      } else {
+        lyricsTitle.textContent = song.title;
+        lyricsText.textContent = "Paroles non disponibles.";
+        lyricsModal.classList.add('show');
       }
-    });
+    }
+
+    renderAlbums();
   </script>
+
 </body>
 </html>
