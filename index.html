@@ -298,7 +298,7 @@
     }
   </style>
 </head>
-
+          
 <body>
   <div class="container">
     <header>
@@ -334,692 +334,247 @@
       <div class="lyrics-text" id="lyricsText"></div>
     </div>
   </div>
-  <script>
-    const albums = [
-      {
-        title: "Taylor Swift",
-        year: "2006",
-        color: "#52b3d9",
-        songs: [
-          { 
-            title: "Tim McGraw", 
-            src: "Tim McGraw.mp3",
-            lyrics: "He said the way my blue eyes shined\nPut those Georgia stars to shame that night\nI said, 'That's a lie'\nJust a boy in a Chevy truck\nThat had a tendency of gettin' stuck\nOn back roads at night\nAnd I was right there beside him all summer long\nAnd then the time we woke up to find that summer gone\nBut when you think Tim McGraw\nI hope you think my favorite song\nThe one we danced to all night long\nThe moon like a spotlight on the lake\nWhen you think happiness\nI hope you think that little black dress\nThink of my head on your chest\nAnd my old faded blue jeans\nWhen you think Tim McGraw\nI hope you think of me\nSeptember saw a month of tears\nAnd thankin' God that you weren't here\nTo see me like that\nBut in a box beneath my bed\nIs a letter that you never read\nFrom three summers back\nIt's hard not to find it all a little bittersweet\nAnd lookin' back on all of that, it's nice to believe\nWhen you think Tim McGraw\nI hope you think my favorite song\nThe one we danced to all night long\nThe moon like a spotlight on the lake\nWhen you think happiness\nI hope you think that little black dress\nThink of my head on your chest\nAnd my old faded blue jeans\nWhen you think Tim McGraw\nI hope you think of me\nAnd I'm back for the first time since then\nI'm standin' on your street\nAnd there's a letter left on your doorstep\nAnd the first thing that you'll read is:\n'When you think Tim McGraw\nI hope you think my favorite song\nSomeday you'll turn your radio on\nI hope it takes you back to that place'\nWhen you think happiness\nI hope you think that little black dress\nThink of my head on your chest\nAnd my old faded blue jeans\nWhen you think Tim McGraw\nI hope you think of me\nOh, think of me\nMmmm\nHe said the way my blue eyes shined\nPut those Georgia stars to shame that night\nI said, 'That's a lie'"
-          },
-          { 
-            title: "Picture to Burn", 
-            src: "Picture to Burn.mp3",
-            lyrics: "State the obvious, I didn't get my perfect fantasy\nI realize you love yourself more than you could ever love me"
-          },
-          { 
-            title: "Teardrops on My Guitar", 
-            src: "Teardrops on My Guitar.mp3",
-            lyrics: "Drew looks at me\nI fake a smile so he won't see\nWhat I want and I'm needing"
-          },
-          { 
-            title: "A Place in This World", 
-            src: "A Place in This World.mp3",
-            lyrics: "I don't know what I want, so don't ask me\n'Cause I'm still trying to figure it out"
-          },
-          { 
-            title: "Cold As You", 
-            src: "Cold As You.mp3",
-            lyrics: "You have a way of coming easily to me\nAnd when you take, you take the very best of me"
-          },
-          { 
-            title: "The Outside", 
-            src: "The Outside.mp3",
-            lyrics: "I didn't know what I would find\nWhen I went looking for a reason, I know"
-          },
-          { 
-            title: "Tied Together with a Smile", 
-            src: "Tied Together with a Smile.mp3",
-            lyrics: "Seems the only one who doesn't see your beauty\nIs the face in the mirror looking back at you"
-          },
-          { 
-            title: "Stay Beautiful", 
-            src: "Stay Beautiful.mp3",
-            lyrics: "Cory's eyes are like a jungle\nHe smiles, it's like the radio"
-          },
-          { 
-            title: "Should've Said No", 
-            src: "Should've Said No.mp3",
-            lyrics: "It's strange to think the songs we used to sing\nThe smiles, the flowers, everything is gone"
-          },
-          { 
-            title: "Mary's Song (Oh My My My)", 
-            src: "Mary's Song (Oh My My My).mp3",
-            lyrics: "Take me back to the time when we walked down the aisle\nOur whole town came and our mamas cried"
-          },
-          { 
-            title: "Our Song", 
-            src: "Our Song.mp3",
-            lyrics: "I was riding shotgun with my hair undone\nIn the front seat of his car"
-          }
-        ]
-      },
-      {
-        title: "Fearless",
-        year: "2008",
-        color: "#f5d76e",
-        songs: [
-          { 
-            title: "Fearless", 
-            src: "Fearless.mp3",
-            lyrics: "There's something 'bout the way\nThe street looks when it's just rained"
-          },
-          { 
-            title: "Fifteen", 
-            src: "Fifteen.mp3",
-            lyrics: "You take a deep breath and you walk through the doors\nIt's the morning of your very first day"
-          },
-          { 
-            title: "Love Story", 
-            src: "Love Story.mp3",
-            lyrics: "We were both young when I first saw you\nI close my eyes and the flashback starts"
-          },
-          { 
-            title: "Hey Stephen", 
-            src: "Hey Stephen.mp3",
-            lyrics: "Hey Stephen, I know looks can be deceiving\nBut I know I saw a light in you"
-          },
-          { 
-            title: "White Horse", 
-            src: "White Horse.mp3",
-            lyrics: "Say you're sorry, that face of an angel\nComes out just when you need it to"
-          },
-          { 
-            title: "You Belong With Me", 
-            src: "You Belong With Me.mp3",
-            lyrics: "You're on the phone with your girlfriend, she's upset\nShe's going off about something that you said"
-          },
-          { 
-            title: "Breathe", 
-            src: "Breathe.mp3",
-            lyrics: "I see your face in my mind as I drive away\n'Cause none of us thought it was gonna end that way"
-          },
-          { 
-            title: "Tell Me Why", 
-            src: "Tell Me Why.mp3",
-            lyrics: "I took a chance, I took a shot\nAnd you might think I'm bulletproof, but I'm not"
-          },
-          { 
-            title: "You're Not Sorry", 
-            src: "You're Not Sorry.mp3",
-            lyrics: "All this time I was wasting\nHoping you would come around"
-          },
-          { 
-            title: "The Way I Loved You", 
-            src: "The Way I Loved You.mp3",
-            lyrics: "He is sensible and so incredible\nAnd all my single friends are jealous"
-          },
-          { 
-            title: "Forever & Always", 
-            src: "Forever & Always.mp3",
-            lyrics: "Once upon a time, I believe it was a Tuesday\nWhen I caught your eye"
-          },
-          { 
-            title: "The Best Day", 
-            src: "The Best Day.mp3",
-            lyrics: "I'm five years old, it's getting cold\nI've got my big coat on"
-          },
-          { 
-            title: "Change", 
-            src: "Change.mp3",
-            lyrics: "It was the night things changed\nDo you see it now?"
-          }
-        ]
-      },
-      {
-        title: "Speak Now",
-        year: "2010",
-        color: "#9b59b6",
-        songs: [
-          { 
-            title: "Mine", 
-            src: "Mine.mp3",
-            lyrics: "You were in college, working part-time waiting tables\nLeft a small town, never looked back"
-          },
-          { 
-            title: "Sparks Fly", 
-            src: "Sparks Fly.mp3",
-            lyrics: "The way you move is like a full on rainstorm\nAnd I'm a house of cards"
-          },
-          { 
-            title: "Back to December", 
-            src: "Back to December.mp3",
-            lyrics: "I'm so glad you made time to see me\nHow's life, tell me how's your family"
-          },
-          { 
-            title: "Speak Now", 
-            src: "Speak Now.mp3",
-            lyrics: "I am not the kind of girl\nWho should be rudely barging in on a white veil occasion"
-          },
-          { 
-            title: "Dear John", 
-            src: "Dear John.mp3",
-            lyrics: "Long were the nights when\nMy days once revolved around you"
-          },
-          { 
-            title: "Mean", 
-            src: "Mean.mp3",
-            lyrics: "You, with your words like knives\nAnd swords and weapons that you use against me"
-          },
-          { 
-            title: "The Story of Us", 
-            src: "The Story of Us.mp3",
-            lyrics: "I used to think one day we'd tell the story of us\nHow we met and the sparks flew instantly"
-          },
-          { 
-            title: "Never Grow Up", 
-            src: "Never Grow Up.mp3",
-            lyrics: "Your little hand's wrapped around my finger\nAnd it's so quiet in the world tonight"
-          },
-          { 
-            title: "Enchanted", 
-            src: "Enchanted.mp3",
-            lyrics: "There I was again tonight\nForcing laughter, faking smiles"
-          },
-          { 
-            title: "Better Than Revenge", 
-            src: "Better Than Revenge.mp3",
-            lyrics: "Now go stand in the corner and think\nAbout what you did"
-          },
-          { 
-            title: "Innocent", 
-            src: "Innocent.mp3",
-            lyrics: "I guess you really did it this time\nLeft yourself in your warpath"
-          },
-          { 
-            title: "Haunted", 
-            src: "Haunted.mp3",
-            lyrics: "You and I walk a fragile line\nI have known it all this time"
-          },
-          { 
-            title: "Last Kiss", 
-            src: "Last Kiss.mp3",
-            lyrics: "I still remember the look on your face\nLit through the darkness at 1:58"
-          },
-          { 
-            title: "Long Live", 
-            src: "Long Live.mp3",
-            lyrics: "I said remember this moment\nIn the back of my mind"
-          }
-        ]
-      },
-      {
-        title: "Red",
-        year: "2012",
-        color: "#e74c3c",
-        songs: [
-          { 
-            title: "State of Grace", 
-            src: "State of Grace.mp3",
-            lyrics: "I'm walking fast through the traffic lights\nBusy streets and busy lives"
-          },
-          { 
-            title: "Red", 
-            src: "Red.mp3",
-            lyrics: "Loving him is like driving a new Maserati down a dead-end street"
-          },
-          { 
-            title: "Treacherous", 
-            src: "Treacherous.mp3",
-            lyrics: "Put your lips close to mine\nAs long as they don't touch"
-          },
-          { 
-            title: "I Knew You Were Trouble", 
-            src: "I Knew You Were Trouble.mp3",
-            lyrics: "Once upon a time, a few mistakes ago\nI was in your sights, you got me alone"
-          },
-          { 
-            title: "All Too Well", 
-            src: "All Too Well.mp3",
-            lyrics: "I walked through the door with you\nThe air was cold"
-          },
-          { 
-            title: "22", 
-            src: "22.mp3",
-            lyrics: "It feels like a perfect night\nTo dress up like hipsters"
-          },
-          { 
-            title: "I Almost Do", 
-            src: "I Almost Do.mp3",
-            lyrics: "I bet this time of night you're still up\nI bet you're tired from a long hard week"
-          },
-          { 
-            title: "We Are Never Ever Getting Back Together", 
-            src: "We Are Never Ever Getting Back Together.mp3",
-            lyrics: "I remember when we broke up the first time\nSaying, 'This is it, I've had enough,' 'cause like"
-          },
-          { 
-            title: "Stay Stay Stay", 
-            src: "Stay Stay Stay.mp3",
-            lyrics: "I'm pretty sure we almost broke up last night\nI threw my phone across the room at you"
-          },
-          { 
-            title: "The Last Time", 
-            src: "The Last Time.mp3",
-            lyrics: "Find myself at your door\nJust like all those times before"
-          },
-          { 
-            title: "Holy Ground", 
-            src: "Holy Ground.mp3",
-            lyrics: "I was reminiscing just the other day\nWhile having coffee all alone and Lord, it took me away"
-          },
-          { 
-            title: "Sad Beautiful Tragic", 
-            src: "Sad Beautiful Tragic.mp3",
-            lyrics: "Long handwritten note deep in your pocket\nWords, how little they mean when you're a little too late"
-          },
-          { 
-            title: "The Lucky One", 
-            src: "The Lucky One.mp3",
-            lyrics: "New to town with a made-up name\nIn the angel's city, chasing fortune and fame"
-          },
-          { 
-            title: "Everything Has Changed", 
-            src: "Everything Has Changed.mp3",
-            lyrics: "All I knew this morning when I woke\nIs I know something now, know something now I didn't before"
-          },
-          { 
-            title: "Starlight", 
-            src: "Starlight.mp3",
-            lyrics: "I said, 'Oh my, what a marvelous tune'\nIt was the best night, never would forget how we moved"
-          },
-          { 
-            title: "Begin Again", 
-            src: "Begin Again.mp3",
-            lyrics: "Took a deep breath in the mirror\nHe didn't like it when I wore high heels"
-          }
-        ]
-      },
-      {
-        title: "1989",
-        year: "2014",
-        color: "#3498db",
-        songs: [
-          { 
-            title: "Welcome to New York", 
-            src: "Welcome to New York.mp3",
-            lyrics: "Walking through a crowd, the village is aglow\nKaleidoscope of loud heartbeats under coats"
-          },
-          { 
-            title: "Blank Space", 
-            src: "Blank Space.mp3",
-            lyrics: "Nice to meet you, where you been?\nI could show you incredible things"
-          },
-          { 
-            title: "Style", 
-            src: "Style.mp3",
-            lyrics: "Midnight\nYou come and pick me up, no headlights"
-          },
-          { 
-            title: "Out of the Woods", 
-            src: "Out of the Woods.mp3",
-            lyrics: "Looking at it now\nIt all seems so simple"
-          },
-          { 
-            title: "All You Had To Do Was Stay", 
-            src: "All You Had To Do Was Stay.mp3",
-            lyrics: "People like you always want back\nThe love they gave away"
-          },
-          { 
-            title: "Shake It Off", 
-            src: "Shake It Off.mp3",
-            lyrics: "I stay out too late\nGot nothing in my brain"
-          },
-          { 
-            title: "I Wish You Would", 
-            src: "I Wish You Would.mp3",
-            lyrics: "It's 2 AM in your car\nWindows down, you pass my street, the memories start"
-          },
-          { 
-            title: "Bad Blood", 
-            src: "Bad Blood.mp3",
-            lyrics: "'Cause baby, now we got bad blood\nYou know it used to be mad love"
-          },
-          { 
-            title: "Wildest Dreams", 
-            src: "Wildest Dreams.mp3",
-            lyrics: "He said, 'Let's get out of this town\nDrive out of the city, away from the crowds'"
-          },
-          { 
-            title: "How You Get the Girl", 
-            src: "How You Get the Girl.mp3",
-            lyrics: "Stand there like a ghost\nShaking from the rain, rain"
-          },
-          { 
-            title: "This Love", 
-            src: "This Love.mp3",
-            lyrics: "Clear blue water\nHigh tide came and brought you in"
-          },
-          { 
-            title: "I Know Places", 
-            src: "I Know Places.mp3",
-            lyrics: "You stand with your hand on my waistline\nIt's a scene and we're out here in plain sight"
-          },
-          { 
-            title: "Clean", 
-            src: "Clean.mp3",
-            lyrics: "The drought was the very worst\nWhen the flowers that we'd grown together died of thirst"
-          }
-        ]
-      },
-      {
-        title: "Reputation",
-        year: "2017",
-        color: "#2c3e50",
-        songs: [
-          { 
-            title: "...Ready For It?", 
-            src: "...Ready For It.mp3",
-            lyrics: "Knew he was a killer first time that I saw him\nWonder how many girls he had loved and left haunted"
-          },
-          { 
-            title: "End Game", 
-            src: "End Game.mp3",
-            lyrics: "I wanna be your end game\nI wanna be your first string"
-          },
-          { 
-            title: "I Did Something Bad", 
-            src: "I Did Something Bad.mp3",
-            lyrics: "I never trust a narcissist\nBut they love me"
-          },
-          { 
-            title: "Don't Blame Me", 
-            src: "Don't Blame Me.mp3",
-            lyrics: "Don't blame me, love made me crazy\nIf it doesn't, you ain't doin' it right"
-          },
-          { 
-            title: "Delicate", 
-            src: "Delicate.mp3",
-            lyrics: "This ain't for the best\nMy reputation's never been worse, so"
-          },
-          { 
-            title: "Look What You Made Me Do", 
-            src: "Look What You Made Me Do.mp3",
-            lyrics: "I don't like your little games\nDon't like your tilted stage"
-          },
-          { 
-            title: "So It Goes...", 
-            src: "So It Goes.mp3",
-            lyrics: "See you in the dark\nAll eyes on you, my magician"
-          },
-          { 
-            title: "Gorgeous", 
-            src: "Gorgeous.mp3",
-            lyrics: "You should take it as a compliment\nThat I got drunk and made fun of the way you talk"
-          },
-          { 
-            title: "Getaway Car", 
-            src: "Getaway Car.mp3",
-            lyrics: "No, nothing good starts in a getaway car\nIt was the best of times, the worst of crimes"
-          },
-          { 
-            title: "King of My Heart", 
-            src: "King of My Heart.mp3",
-            lyrics: "I'm perfectly fine, I live on my own\nI've made up my mind, I'm better off being alone"
-          },
-          { 
-            title: "Dancing With Our Hands Tied", 
-            src: "Dancing With Our Hands Tied.mp3",
-            lyrics: "I, I loved you in secret\nFirst sight, yeah, we love without reason"
-          },
-          { 
-            title: "Dress", 
-            src: "Dress.mp3",
-            lyrics: "Our secret moments in a crowded room\nThey got no idea about me and you"
-          },
-          { 
-            title: "This Is Why We Can't Have Nice Things", 
-            src: "This Is Why We Can't Have Nice Things.mp3",
-            lyrics: "It was so nice being friends again\nThere I was giving you a second chance"
-          },
-          { 
-            title: "Call It What You Want", 
-            src: "Call It What You Want.mp3",
-            lyrics: "My castle crumbled overnight\nI brought a knife to a gunfight"
-          },
-          { 
-            title: "New Year's Day", 
-            src: "New Year's Day.mp3",
-            lyrics: "There's glitter on the floor after the party\nGirls carrying their shoes down in the lobby"
-          }
-        ]
-      },
-      {
-        title: "Lover",
-        year: "2019",
-        color: "#e84393",
-        songs: [
-          { 
-            title: "I Forgot That You Existed", 
-            src: "I Forgot That You Existed.mp3",
-            lyrics: "How many days did I spend thinking\n'Bout how you did me wrong, wrong, wrong?"
-          },
-          { 
-            title: "Cruel Summer", 
-            src: "Cruel Summer.mp3",
-            lyrics: "Fever dream high in the quiet of the night\nYou know that I caught it"
-          },
-          { 
-            title: "Lover", 
-            src: "Lover.mp3",
-            lyrics: "We could leave the Christmas lights up 'til January\nAnd this is our place, we make the rules"
-          },
-          { 
-            title: "The Man", 
-            src: "The Man.mp3",
-            lyrics: "I would be complex, I would be cool\nThey'd say I played the field before I found someone to commit to"
-          },
-          { 
-            title: "The Archer", 
-            src: "The Archer.mp3",
-            lyrics: "Combat, I'm ready for combat\nI say I don't want that, but what if I do?"
-          },
-          { 
-            title: "I Think He Knows", 
-            src: "I Think He Knows.mp3",
-            lyrics: "Lyrical smile, indigo eyes, hand on my thigh\nWe can follow the sparks, I'll drive"
-          },
-          { 
-            title: "Miss Americana & The Heartbreak Prince", 
-            src: "Miss Americana & The Heartbreak Prince.mp3",
-            lyrics: "You know I adore you, I'm crazier for you\nThan I was at sixteen, lost in a film scene"
-          },
-          { 
-            title: "Paper Rings", 
-            src: "Paper Rings.mp3",
-            lyrics: "The moon is high\nLike your friends were the night that we first met"
-          },
-          { 
-            title: "Cornelia Street", 
-            src: "Cornelia Street.mp3",
-            lyrics: "We were in the backseat\nDrunk on something stronger than the drinks in the bar"
-          },
-          { 
-            title: "Death By A Thousand Cuts", 
-            src: "Death By A Thousand Cuts.mp3",
-            lyrics: "Saying goodbye is death by a thousand cuts\nFlashbacks waking me up"
-          },
-          { 
-            title: "London Boy", 
-            src: "London Boy.mp3",
-            lyrics: "We can go driving in, on my scooter\nUh, you know, just riding in London"
-          },
-          { 
-            title: "Soon You'll Get Better", 
-            src: "Soon You'll Get Better.mp3",
-            lyrics: "The buttons of my coat were tangled in my hair\nIn doctor's office lighting, I didn't tell you I was scared"
-          },
-          { 
-            title: "False God", 
-            src: "False God.mp3",
-            lyrics: "We were crazy to think\nCrazy to think that this could work"
-          },
-          { 
-            title: "You Need To Calm Down", 
-            src: "You Need To Calm Down.mp3",
-            lyrics: "You are somebody that I don't know\nBut you're taking shots at me like it's Patrón"
-          },
-          { 
-            title: "Afterglow", 
-            src: "Afterglow.mp3",
-            lyrics: "I blew things out of proportion, now you're blue\nPut you in jail for something you didn't do"
-          },
-          { 
-            title: "Me!", 
-            src: "Me!.mp3",
-            lyrics: "I know that I'm a handful, baby, uh\nI know I never think before I jump"
-          },
-          { 
-            title: "It's Nice To Have A Friend", 
-            src: "It's Nice To Have A Friend.mp3",
-            lyrics: "Light pink sky up on the roof\nSun sinks down, no curfew"
-          },
-          { 
-            title: "Daylight", 
-            src: "Daylight.mp3",
-            lyrics: "My love was as cruel as the cities I lived in\nEveryone looked worse in the light"
-          }
-        ]
-      },
-      {
-        title: "Folklore",
-        year: "2020",
-        color: "#636e72",
-        songs: [
-          { 
-            title: "The 1", 
-            src: "The 1.mp3",
-            lyrics: "I'm doing good, I'm on some new shit\nBeen saying 'yes' instead of 'no'"
-          },
-          { 
-            title: "Cardigan", 
-            src: "Cardigan.mp3",
-            lyrics: "Vintage tee, brand new phone\nHigh heels on cobblestones"
-          },
-          { 
-            title: "The Last Great American Dynasty", 
-            src: "The Last Great American Dynasty.mp3",
-            lyrics: "Rebekah rode up on the afternoon train, it was sunny\nHer saltbox house on the coast took her mind off St. Louis"
-          },
-          { 
-            title: "Exile", 
-            src: "Exile.mp3",
-            lyrics: "I can see you standing, honey\nWith his arms around your body"
-          },
-          { 
-            title: "My Tears Ricochet", 
-            src: "My Tears Ricochet.mp3",
-            lyrics: "We gather here, we line up\nWeepin' in a sunlit room"
-          },
-          { 
-            title: "Mirrorball", 
-            src: "Mirrorball.mp3",
-            lyrics: "I want you to know\nI'm a mirrorball"
-          },
-          { 
-            title: "Seven", 
-            src: "Seven.mp3",
-            lyrics: "Please picture me in the trees\nI hit my peak at seven feet"
-          },
-          { 
-            title: "August", 
-            src: "August.mp3",
-            lyrics: "Salt air, and the rust on your door\nI never needed anything more"
-          },
-          { 
-            title: "This Is Me Trying", 
-            src: "This Is Me Trying.mp3",
-            lyrics: "I've been having a hard time adjusting so i got wasted like all my potential"
-          },
-          { 
-            title: "Illicit Affairs", 
-            src: "Illicit Affairs.mp3",
-            lyrics: "Make sure nobody sees you leave\nHood over your head, keep your eyes down"
-          },
-          { 
-            title: "Invisible String", 
-            src: "Invisible String.mp3" },
-          { title: "Mad Woman", src: "Mad Woman.mp3" },
-          { title: "Epiphany", src: "Epiphany.mp3" },
-          { title: "Betty", src: "Betty.mp3" },
-          { title: "Peace", src: "Peace.mp3" },
-          { title: "Hoax", src: "Hoax.mp3" }
-        ]
-      },
-      {
-        title: "Evermore",
-        year: "2020",
-        color: "#6c321f",
-        songs: [
-          { title: "Willow", src: "Willow.mp3" },
-          { title: "Champagne Problems", src: "Champagne Problems.mp3" },
-          { title: "Gold Rush", src: "Gold Rush.mp3" },
-          { title: "'Tis the Damn Season", src: "'Tis the Damn Season.mp3" },
-          { title: "Tolerate It", src: "Tolerate It.mp3" },
-          { title: "No Body No Crime", src: "No Body No Crime.mp3" },
-          { title: "Happiness", src: "Happiness.mp3" },
-          { title: "Dorothea", src: "Dorothea.mp3" },
-          { title: "Coney Island", src: "Coney Island.mp3" },
-          { title: "Ivy", src: "Ivy.mp3" },
-          { title: "Cowboy Like Me", src: "Cowboy Like Me.mp3" },
-          { title: "Long Story Short", src: "Long Story Short.mp3" },
-          { title: "Marjorie", src: "Marjorie.mp3" },
-          { title: "Closure", src: "Closure.mp3" },
-          { title: "Evermore", src: "Evermore.mp3" }
-        ]
-      },
-      {
-        title: "Midnights",
-        year: "2022",
-        color: "#0984e3",
-        songs: [
-          { title: "Lavender Haze", src: "Lavender Haze.mp3" },
-          { title: "Maroon", src: "Maroon.mp3" },
-          { title: "Anti-Hero", src: "Anti-Hero.mp3" },
-          { title: "Snow On The Beach", src: "Snow On The Beach.mp3" },
-          { title: "You're On Your Own Kid", src: "You're On Your Own Kid.mp3" },
-          { title: "Midnight Rain", src: "Midnight Rain.mp3" },
-          { title: "Question...?", src: "Question....mp3" },
-          { title: "Vigilante Shit", src: "Vigilante Shit.mp3" },
-          { title: "Bejeweled", src: "Bejeweled.mp3" },
-          { title: "Labyrinth", src: "Labyrinth.mp3" },
-          { title: "Karma", src: "Karma.mp3" },
-          { title: "Sweet Nothing", src: "Sweet Nothing.mp3" },
-          { title: "Mastermind", src: "Mastermind.mp3" }
-        ]
-      },
-      {
-        title: "The Tortured Poets Department",
-        year: "2024",
-        color: "#6c5ce7",
-        songs: [
-          { title: "Fortnight", src: "Fortnight.mp3" },
-          { title: "The Tortured Poets Department", src: "The Tortured Poets Department.mp3" },
-          { title: "My Boy Only Breaks His Favorite Toys", src: "My Boy Only Breaks His Favorite Toys.mp3" },
-          { title: "Down Bad", src: "Down Bad.mp3" },
-          { title: "So Long, London", src: "So Long, London.mp3" },
-          { title: "But Daddy I Love Him", src: "But Daddy I Love Him.mp3" },
-          { title: "Fresh Out the Slammer", src: "Fresh Out the Slammer.mp3" },
-          { title: "Florida!!!", src: "Florida!!!.mp3" },
-          { title: "Guilty As Sin?", src: "Guilty As Sin.mp3" },
-          { title: "Who's Afraid of Little Old Me?", src: "Who's Afraid of Little Old Me.mp3" },
-          { title: "I Can Fix Him (No Really I Can)", src: "I Can Fix Him.mp3" },
-          { title: "loml", src: "loml.mp3" },
-          { title: "I Can Do It With A Broken Heart", src: "I Can Do It With A Broken Heart.mp3" },
-          { title: "The Smallest Man Who Ever Lived", src: "The Smallest Man Who Ever Lived.mp3" },
-          { title: "The Albatross", src: "The Albatross.mp3" },
-          { title: "Chloe or Sam or Sophia or Marcus", src: "Chloe or Sam or Sophia or Marcus.mp3" },
-          { title: "How Did It End?", src: "How Did It End.mp3" },
-          { title: "The Black Dog", src: "The Black Dog.mp3" },
-          { title: "Imgonnagetyouback", src: "Imgonnagetyouback.mp3" }
-        ]
-      }
-    ];
-    document.addEventListener('DOMContentLoaded', function() {
+ <script>
+const albums = [
+  {
+    title: "Taylor Swift",
+    year: "2006",
+    color: "#52b3d9",
+    songs: [
+      { title: "Tim McGraw", src: "Tim McGraw.mp3", lyrics: "He said the way my blue eyes shined\nPut those Georgia stars to shame that night\nI said, 'That's a lie'\nJust a boy in a Chevy truck\nThat had a tendency of gettin' stuck\nOn back roads at night\nAnd I was right there beside him all summer long\nAnd then the time we woke up to find that summer gone\nBut when you think Tim McGraw\nI hope you think my favorite song\nThe one we danced to all night long\nThe moon like a spotlight on the lake\nWhen you think happiness\nI hope you think that little black dress\nThink of my head on your chest\nAnd my old faded blue jeans\nWhen you think Tim McGraw\nI hope you think of me\nSeptember saw a month of tears\nAnd thankin' God that you weren't here\nTo see me like that\nBut in a box beneath my bed\nIs a letter that you never read\nFrom three summers back\nIt's hard not to find it all a little bittersweet\nAnd lookin' back on all of that, it's nice to believe\nWhen you think Tim McGraw\nI hope you think my favorite song\nThe one we danced to all night long\nThe moon like a spotlight on the lake\nWhen you think happiness\nI hope you think that little black dress\nThink of my head on your chest\nAnd my old faded blue jeans\nWhen you think Tim McGraw\nI hope you think of me\nAnd I'm back for the first time since then\nI'm standin' on your street\nAnd there's a letter left on your doorstep\nAnd the first thing that you'll read is:\n'When you think Tim McGraw\nI hope you think my favorite song\nSomeday you'll turn your radio on\nI hope it takes you back to that place'\nWhen you think happiness\nI hope you think that little black dress\nThink of my head on your chest\nAnd my old faded blue jeans\nWhen you think Tim McGraw\nI hope you think of me\nOh, think of me\nMmmm\nHe said the way my blue eyes shined\nPut those Georgia stars to shame that night\nI said, 'That's a lie'" },
+      { title: "Picture to Burn", src: "Picture to Burn.mp3", lyrics: "State the obvious..." },
+      { title: "Teardrops on My Guitar", src: "Teardrops on My Guitar.mp3", lyrics: "Drew looks at me..." },
+      { title: "A Place in This World", src: "A Place in This World.mp3", lyrics: "I don't know what I want..." },
+      { title: "Cold As You", src: "Cold As You.mp3", lyrics: "You have a way..." },
+      { title: "The Outside", src: "The Outside.mp3", lyrics: "I didn't know..." },
+      { title: "Tied Together with a Smile", src: "Tied Together with a Smile.mp3", lyrics: "Seems the only one..." },
+      { title: "Stay Beautiful", src: "Stay Beautiful.mp3", lyrics: "Cory's eyes..." },
+      { title: "Should've Said No", src: "Should've Said No.mp3", lyrics: "It's strange to think..." },
+      { title: "Mary's Song", src: "Mary's Song.mp3", lyrics: "Take me back..." },
+      { title: "Our Song", src: "Our Song.mp3", lyrics: "I was riding shotgun..." }
+    ]
+  },
+  {
+    title: "Fearless",
+    year: "2008",
+    color: "#f5d76e", 
+    songs: [
+      { title: "Fearless", src: "Fearless.mp3", lyrics: "There's something 'bout the way..." },
+      { title: "Fifteen", src: "Fifteen.mp3", lyrics: "You take a deep breath..." },
+      { title: "Love Story", src: "Love Story.mp3", lyrics: "We were both young..." },
+      { title: "Hey Stephen", src: "Hey Stephen.mp3", lyrics: "Hey Stephen..." },
+      { title: "White Horse", src: "White Horse.mp3", lyrics: "Say you're sorry..." },
+      { title: "You Belong With Me", src: "You Belong With Me.mp3", lyrics: "You're on the phone..." },
+      { title: "Breathe", src: "Breathe.mp3", lyrics: "I see your face..." },
+      { title: "Tell Me Why", src: "Tell Me Why.mp3", lyrics: "I took a chance..." },
+      { title: "You're Not Sorry", src: "You're Not Sorry.mp3", lyrics: "All this time..." },
+      { title: "The Way I Loved You", src: "The Way I Loved You.mp3", lyrics: "He is sensible..." },
+      { title: "Forever & Always", src: "Forever & Always.mp3", lyrics: "Once upon a time..." },
+      { title: "The Best Day", src: "The Best Day.mp3", lyrics: "I'm five years old..." },
+      { title: "Change", src: "Change.mp3", lyrics: "It was the night..." }
+    ]
+  },
+  {
+    title: "Speak Now", 
+    year: "2010",
+    color: "#9b59b6",
+    songs: [
+      { title: "Mine", src: "Mine.mp3", lyrics: "You were in college..." },
+      { title: "Sparks Fly", src: "Sparks Fly.mp3", lyrics: "The way you move..." },
+      { title: "Back to December", src: "Back to December.mp3", lyrics: "I'm so glad..." },
+      { title: "Speak Now", src: "Speak Now.mp3", lyrics: "I am not the kind..." },
+      { title: "Dear John", src: "Dear John.mp3", lyrics: "Long were the nights..." },
+      { title: "Mean", src: "Mean.mp3", lyrics: "You, with your words..." },
+      { title: "The Story of Us", src: "The Story of Us.mp3", lyrics: "I used to think..." },
+      { title: "Never Grow Up", src: "Never Grow Up.mp3", lyrics: "Your little hand..." },
+      { title: "Enchanted", src: "Enchanted.mp3", lyrics: "There I was..." },
+      { title: "Better Than Revenge", src: "Better Than Revenge.mp3", lyrics: "Now go stand..." },
+      { title: "Innocent", src: "Innocent.mp3", lyrics: "I guess you..." },
+      { title: "Haunted", src: "Haunted.mp3", lyrics: "You and I walk..." },
+      { title: "Last Kiss", src: "Last Kiss.mp3", lyrics: "I still remember..." },
+      { title: "Long Live", src: "Long Live.mp3", lyrics: "I said remember..." }
+    ]
+  },
+  {
+    title: "Red",
+    year: "2012",
+    color: "#e74c3c",
+    songs: [
+      { title: "State of Grace", src: "State of Grace.mp3", lyrics: "I'm walking fast..." },
+      { title: "Red", src: "Red.mp3", lyrics: "Loving him is like..." },
+      { title: "Treacherous", src: "Treacherous.mp3", lyrics: "Put your lips close..." },
+      { title: "I Knew You Were Trouble", src: "I Knew You Were Trouble.mp3", lyrics: "Once upon a time..." },
+      { title: "All Too Well", src: "All Too Well.mp3", lyrics: "I walked through..." },
+      { title: "22", src: "22.mp3", lyrics: "It feels like..." },
+      { title: "I Almost Do", src: "I Almost Do.mp3", lyrics: "I bet this time..." },
+      { title: "We Are Never Ever Getting Back Together", src: "We Are Never Ever Getting Back Together.mp3", lyrics: "I remember when..." },
+      { title: "Stay Stay Stay", src: "Stay Stay Stay.mp3", lyrics: "I'm pretty sure..." },
+      { title: "The Last Time", src: "The Last Time.mp3", lyrics: "Find myself..." },
+      { title: "Holy Ground", src: "Holy Ground.mp3", lyrics: "I was reminiscing..." },
+      { title: "Sad Beautiful Tragic", src: "Sad Beautiful Tragic.mp3", lyrics: "Long handwritten note..." },
+      { title: "The Lucky One", src: "The Lucky One.mp3", lyrics: "New to town..." },
+      { title: "Everything Has Changed", src: "Everything Has Changed.mp3", lyrics: "All I knew..." },
+      { title: "Starlight", src: "Starlight.mp3", lyrics: "I said, 'Oh my..." },
+      { title: "Begin Again", src: "Begin Again.mp3", lyrics: "Took a deep breath..." }
+    ]
+  },
+  {
+    title: "1989",
+    year: "2014",
+    color: "#3498db",
+    songs: [
+      { title: "Welcome To New York", src: "Welcome To New York.mp3", lyrics: "Walking through..." },
+      { title: "Blank Space", src: "Blank Space.mp3", lyrics: "Nice to meet you..." },
+      { title: "Style", src: "Style.mp3", lyrics: "Midnight..." },
+      { title: "Out Of The Woods", src: "Out Of The Woods.mp3", lyrics: "Looking at it now..." },
+      { title: "All You Had To Do Was Stay", src: "All You Had To Do Was Stay.mp3", lyrics: "People like you..." },
+      { title: "Shake It Off", src: "Shake It Off.mp3", lyrics: "I stay out too late..." },
+      { title: "I Wish You Would", src: "I Wish You Would.mp3", lyrics: "It's 2 AM..." },
+      { title: "Bad Blood", src: "Bad Blood.mp3", lyrics: "'Cause baby now we got..." },
+      { title: "Wildest Dreams", src: "Wildest Dreams.mp3", lyrics: "He said, 'Let's get out..." },
+      { title: "How You Get The Girl", src: "How You Get The Girl.mp3", lyrics: "Stand there like..." },
+      { title: "This Love", src: "This Love.mp3", lyrics: "Clear blue water..." },
+      { title: "I Know Places", src: "I Know Places.mp3", lyrics: "You stand with..." },
+      { title: "Clean", src: "Clean.mp3", lyrics: "The drought was..." }
+    ]
+  },
+  {
+    title: "Reputation",
+    year: "2017",
+    color: "#2c3e50",
+    songs: [
+      { title: "...Ready For It?", src: "Ready For It.mp3", lyrics: "Knew he was..." },
+      { title: "End Game", src: "End Game.mp3", lyrics: "I wanna be..." },
+      { title: "I Did Something Bad", src: "I Did Something Bad.mp3", lyrics: "I never trust..." },
+      { title: "Don't Blame Me", src: "Don't Blame Me.mp3", lyrics: "Don't blame me..." },
+      { title: "Delicate", src: "Delicate.mp3", lyrics: "This ain't for..." },
+      { title: "Look What You Made Me Do", src: "Look What You Made Me Do.mp3", lyrics: "I don't like..." },
+      { title: "So It Goes...", src: "So It Goes.mp3", lyrics: "See you in..." },
+      { title: "Gorgeous", src: "Gorgeous.mp3", lyrics: "You should take..." },
+      { title: "Getaway Car", src: "Getaway Car.mp3", lyrics: "No, nothing good..." },
+      { title: "King Of My Heart", src: "King Of My Heart.mp3", lyrics: "I'm perfectly..." },
+      { title: "Dancing With Our Hands Tied", src: "Dancing With Our Hands Tied.mp3", lyrics: "I, I loved you..." },
+      { title: "Dress", src: "Dress.mp3", lyrics: "Our secret moments..." },
+      { title: "This Is Why We Can't Have Nice Things", src: "This Is Why We Can't Have Nice Things.mp3", lyrics: "It was so nice..." },
+      { title: "Call It What You Want", src: "Call It What You Want.mp3", lyrics: "My castle crumbled..." },
+      { title: "New Year's Day", src: "New Year's Day.mp3", lyrics: "There's glitter..." }
+    ]
+  },
+  {
+    title: "Lover",
+    year: "2019",
+    color: "#e84393",
+    songs: [
+      { title: "I Forgot That You Existed", src: "I Forgot That You Existed.mp3", lyrics: "How many days..." },
+      { title: "Cruel Summer", src: "Cruel Summer.mp3", lyrics: "Fever dream high..." },
+      { title: "Lover", src: "Lover.mp3", lyrics: "We could leave..." },
+      { title: "The Man", src: "The Man.mp3", lyrics: "I would be complex..." },
+      { title: "The Archer", src: "The Archer.mp3", lyrics: "Combat, I'm ready..." },
+      { title: "I Think He Knows", src: "I Think He Knows.mp3", lyrics: "Lyrical smile..." },
+      { title: "Miss Americana & The Heartbreak Prince", src: "Miss Americana & The Heartbreak Prince.mp3", lyrics: "You know I adore you..." },
+      { title: "Paper Rings", src: "Paper Rings.mp3", lyrics: "The moon is high..." },
+      { title: "Cornelia Street", src: "Cornelia Street.mp3", lyrics: "We were in the backseat..." },
+      { title: "Death By A Thousand Cuts", src: "Death By A Thousand Cuts.mp3", lyrics: "Saying goodbye..." },
+      { title: "London Boy", src: "London Boy.mp3", lyrics: "We can go driving..." },
+      { title: "Soon You'll Get Better", src: "Soon You'll Get Better.mp3", lyrics: "The buttons..." },
+      { title: "False God", src: "False God.mp3", lyrics: "We were crazy..." },
+      { title: "You Need To Calm Down", src: "You Need To Calm Down.mp3", lyrics: "You are somebody..." },
+      { title: "Afterglow", src: "Afterglow.mp3", lyrics: "I blew things..." },
+      { title: "Me!", src: "Me!.mp3", lyrics: "I know that I'm..." },
+      { title: "It's Nice To Have A Friend", src: "It's Nice To Have A Friend.mp3", lyrics: "Light pink sky..." },
+      { title: "Daylight", src: "Daylight.mp3", lyrics: "My love was..." }
+    ]
+  },
+  {
+    title: "folklore",
+    year: "2020",
+    color: "#636e72",
+    songs: [
+      { title: "the 1", src: "the 1.mp3", lyrics: "I'm doing good..." },
+      { title: "cardigan", src: "cardigan.mp3", lyrics: "Vintage tee..." },
+      { title: "the last great american dynasty", src: "the last great american dynasty.mp3", lyrics: "Rebekah rode up..." },
+      { title: "exile", src: "exile.mp3", lyrics: "I can see you..." },
+      { title: "my tears ricochet", src: "my tears ricochet.mp3", lyrics: "We gather here..." },
+      { title: "mirrorball", src: "mirrorball.mp3", lyrics: "I want you..." },
+      { title: "seven", src: "seven.mp3", lyrics: "Please picture me..." },
+      { title: "august", src: "august.mp3", lyrics: "Salt air..." },
+      { title: "this is me trying", src: "this is me trying.mp3", lyrics: "I've been having..." },
+      { title: "illicit affairs", src: "illicit affairs.mp3", lyrics: "Make sure nobody..." },
+      { title: "invisible string", src: "invisible string.mp3", lyrics: "Green was the..." },
+      { title: "mad woman", src: "mad woman.mp3", lyrics: "What did you..." },
+      { title: "epiphany", src: "epiphany.mp3", lyrics: "Keep your helmet..." },
+      { title: "betty", src: "betty.mp3", lyrics: "Betty, I won't..." },
+      { title: "peace", src: "peace.mp3", lyrics: "Our coming-of-age..." },
+      { title: "hoax", src: "hoax.mp3", lyrics: "My only one..." }
+    ]
+  },
+  {
+    title: "evermore",
+    year: "2020",
+    color: "#6c321f",
+    songs: [
+      { title: "willow", src: "willow.mp3", lyrics: "I'm like the water..." },
+      { title: "champagne problems", src: "champagne problems.mp3", lyrics: "You booked the night..." },
+      { title: "gold rush", src: "gold rush.mp3", lyrics: "Gleaming, twinkling..." },
+      { title: "'tis the damn season", src: "'tis the damn season.mp3", lyrics: "If I wanted to..." },
+      { title: "tolerate it", src: "tolerate it.mp3", lyrics: "I sit and watch..." },
+      { title: "no body, no crime", src: "no body, no crime.mp3", lyrics: "He did it..." },
+      { title: "happiness", src: "happiness.mp3", lyrics: "Honey, when I'm..." },
+      { title: "dorothea", src: "dorothea.mp3", lyrics: "Hey, Dorothea..." },
+      { title: "coney island", src: "coney island.mp3", lyrics: "Break my soul..." },
+      { title: "ivy", src: "ivy.mp3", lyrics: "How's one to know..." },
+      { title: "cowboy like me", src: "cowboy like me.mp3", lyrics: "And the tennis court..." },
+      { title: "long story short", src: "long story short.mp3", lyrics: "Fatefully..." },
+      { title: "marjorie", src: "marjorie.mp3", lyrics: "Never be so kind..." },
+      { title: "closure", src: "closure.mp3", lyrics: "It's been a long..." },
+      { title: "evermore", src: "evermore.mp3", lyrics: "Gray November..." }
+    ]
+  },
+  {
+    title: "Midnights",
+    year: "2022",
+    color: "#0984e3",
+    songs: [
+      { title: "Lavender Haze", src: "Lavender Haze.mp3", lyrics: "Meet me at midnight..." },
+      { title: "Maroon", src: "Maroon.mp3", lyrics: "When the morning came..." },
+      { title: "Anti-Hero", src: "Anti-Hero.mp3", lyrics: "I have this thing..." },
+      { title: "Snow On The Beach", src: "Snow On The Beach.mp3", lyrics: "One night a few..." },
+      { title: "You're On Your Own, Kid", src: "You're On Your Own, Kid.mp3", lyrics: "Summer went away..." },
+      { title: "Midnight Rain", src: "Midnight Rain.mp3", lyrics: "He was sunshine..." },
+      { title: "Question...?", src: "Question.mp3", lyrics: "Good girl, sad boy..." },
+      { title: "Vigilante Shit", src: "Vigilante Shit.mp3", lyrics: "Draw the cat eye..." },
+      { title: "Bejeweled", src: "Bejeweled.mp3", lyrics: "Baby love..." },
+      { title: "Labyrinth", src: "Labyrinth.mp3", lyrics: "It only hurts..." },
+      { title: "Karma", src: "Karma.mp3", lyrics: "You're talking..." },
+      { title: "Sweet Nothing", src: "Sweet Nothing.mp3", lyrics: "On the way home..." },
+      { title: "Mastermind", src: "Mastermind.mp3", lyrics: "Once upon a time..." }
+    ]
+  },
+  {
+    title: "The Tortured Poets Department",
+    year: "2024",
+    color: "#6c5ce7",
+    songs: [
+      { title: "Fortnight", src: "Fortnight.mp3", lyrics: "I was supposed to be..." },
+      { title: "The Tortured Poets Department", src: "The Tortured Poets Department.mp3", lyrics: "You left your typewriter..." },
+      { title: "My Boy Only Breaks His Favorite Toys", src: "My Boy Only Breaks His Favorite Toys.mp3", lyrics: "Once upon a time..." },
+      { title: "Down Bad", src: "Down Bad.mp3", lyrics: "Did you take all..." },
+      { title: "So Long, London", src: "So Long, London.mp3", lyrics: "I saw in my mind..." },
+      { title: "But Daddy I Love Him", src: "But Daddy I Love Him.mp3", lyrics: "I'm having his baby..." },
+      { title: "Fresh Out The Slammer", src: "Fresh Out The Slammer.mp3", lyrics: "Now pretty baby..." },
+      { title: "Florida!!!", src: "Florida.mp3", lyrics: "You can beat the heat..." },
+      { title: "Guilty As Sin?", src: "Guilty As Sin.mp3", lyrics: "Drowning in the..." },
+      { title: "Who's Afraid Of Little Old Me?", src: "Who's Afraid Of Little Old Me.mp3", lyrics: "The scandal was..." },
+      { title: "I Can Fix Him (No Really I Can)", src: "I Can Fix Him.mp3", lyrics: "They shake their heads..." },
+      { title: "loml", src: "loml.mp3", lyrics: "You shit-talked me..." },
+      { title: "I Can Do It With A Broken Heart", src: "I Can Do It With A Broken Heart.mp3", lyrics: "I'm so depressed..." },
+      { title: "The Smallest Man Who Ever Lived", src: "The Smallest Man Who Ever Lived.mp3", lyrics: "You didn't measure..." },
+      { title: "The Alchemy", src: "The Alchemy.mp3", lyrics: "These blokes warm..." },
+      { title: "Clara Bow", src: "Clara Bow.mp3", lyrics: "You look like..." }
+    ]
+  }
+];
+   document.addEventListener('DOMContentLoaded', function() {
       const albumsContainer = document.getElementById('albums-container');
       const audioPlayer = document.getElementById('audioPlayer');
       const nowPlayingTitle = document.getElementById('now-playing-title');
