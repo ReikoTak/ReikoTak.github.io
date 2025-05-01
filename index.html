@@ -312,13 +312,13 @@
       <div class="player-container">
         <div class="now-playing">
           <div class="now-playing-info">
-            <div class="now-playing-title" id="now-playing-title">Sélectionnez une chanson</div>
+            <div class="now-playing-title" id="now-playing-title">Select a song</div>
             <div class="now-playing-album" id="now-playing-album"></div>
           </div>
         </div>
         <audio id="audioPlayer" controls>
           <source src="" type="audio/mp3" />
-          Votre navigateur ne supporte pas l'élément audio.
+          Your browser does not support the audio element.
         </audio>
       </div>
     </main>
@@ -753,11 +753,11 @@ const albums = [
         audioPlayer.play()
           .then(() => {
             nowPlayingTitle.textContent = song.title;
-            nowPlayingAlbum.textContent = `de l'album ${album.title} (${album.year})`;
+            nowPlayingAlbum.textContent = `from ${album.title} (${album.year})`;
           })
           .catch(error => {
-            console.error("Erreur de lecture:", error);
-            nowPlayingTitle.textContent = "Erreur de lecture";
+            console.error("Audio playback error:", error);
+            nowPlayingTitle.textContent = "Audio playback error";
             nowPlayingAlbum.textContent = song.title;
           });
       }
@@ -766,7 +766,7 @@ const albums = [
       function showLyrics(song, album) {
         lyricsTitle.textContent = song.title;
         lyricsAlbum.textContent = `Album: ${album.title} (${album.year})`;
-        lyricsText.textContent = song.lyrics || "Paroles non disponibles.";
+        lyricsText.textContent = song.lyrics || "Lyrics unavailable";
         lyricsModal.classList.add('show');
       }
 
