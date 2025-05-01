@@ -305,3 +305,36 @@
         ]
       }
     ];
+    const container = document.getElementById("albums-container");
+    const audioPlayer = document.getElementById("audioPlayer");
+
+    albums.forEach(album => {
+      const albumDiv = document.createElement("div");
+      albumDiv.classList.add("album");
+
+      const title = document.createElement("h2");
+      title.textContent = `Album : ${album.title}`;
+      albumDiv.appendChild(title);
+
+      const instruction = document.createElement("p");
+      instruction.textContent = "Cliquez sur la chanson que vous souhaitez écouter :";
+      albumDiv.appendChild(instruction);
+
+      const ul = document.createElement("ul");
+      album.songs.forEach(song => {
+        const li = document.createElement("li");
+        li.textContent = song.title;
+        li.setAttribute("data-src", song.src);
+        li.addEventListener("click", () => {
+          audioPlayer.src = song.src;
+          audioPlayer.play();
+        });
+        ul.appendChild(li);
+      });
+
+      albumDiv.appendChild(ul);
+      container.appendChild(albumDiv);
+    });
+  </script>
+</body>
+</html>
