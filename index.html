@@ -86,6 +86,7 @@
     }
     
     .album-header {
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
       color: white;
       padding: 20px;
       position: relative;
@@ -125,7 +126,6 @@
       transition: background 0.2s ease;
       display: flex;
       align-items: center;
-      justify-content: space-between;
     }
     
     .song-item:last-child {
@@ -257,21 +257,17 @@
       cursor: pointer;
       color: var(--dark);
     }
-    
     /* Scrollbar styling */
-    .album-songs::-webkit-scrollbar,
-    .lyrics-content::-webkit-scrollbar {
+    .album-songs::-webkit-scrollbar {
       width: 8px;
     }
     
-    .album-songs::-webkit-scrollbar-track,
-    .lyrics-content::-webkit-scrollbar-track {
+    .album-songs::-webkit-scrollbar-track {
       background: rgba(0,0,0,0.05);
       border-radius: 10px;
     }
     
-    .album-songs::-webkit-scrollbar-thumb,
-    .lyrics-content::-webkit-scrollbar-thumb {
+    .album-songs::-webkit-scrollbar-thumb {
       background: var(--primary);
       border-radius: 10px;
     }
@@ -284,12 +280,7 @@
       .albums-grid {
         grid-template-columns: 1fr;
       }
-      
-      .player-container {
-        position: static;
-        margin-bottom: 20px;
-      }
-      
+
       .lyrics-content {
         width: 95%;
         padding: 20px;
@@ -297,6 +288,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="container">
     <header>
