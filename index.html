@@ -1017,6 +1017,8 @@
       }
     ];
 
+   <script>
+  document.addEventListener('DOMContentLoaded', function() {
     const albumsContainer = document.getElementById('albums-container');
     const audioPlayer = document.getElementById('audioPlayer');
     const nowPlaying = document.getElementById('now-playing');
@@ -1026,11 +1028,22 @@
     const lyricsText = document.getElementById('lyricsText');
     const closeLyrics = document.getElementById('closeLyrics');
 
+    // Fermer la modale quand on clique sur le bouton fermer
     closeLyrics.addEventListener('click', () => {
       lyricsModal.classList.remove('show');
     });
 
+    // Fermer la modale quand on clique en dehors
+    lyricsModal.addEventListener('click', (e) => {
+      if (e.target === lyricsModal) {
+        lyricsModal.classList.remove('show');
+      }
+    });
+
     function renderAlbums() {
+      // Vider le conteneur avant de remplir
+      albumsContainer.innerHTML = '';
+      
       albums.forEach(album => {
         const albumDiv = document.createElement('div');
         albumDiv.className = 'album';
@@ -1039,43 +1052,48 @@
         albumTitle.textContent = `${album.title} (${album.year})`;
         albumDiv.appendChild(albumTitle);
 
+        const songsList = document.createElement('div');
+        songsList.className = 'songs-list';
+        
         album.songs.forEach((song, index) => {
           const songDiv = document.createElement('div');
           songDiv.className = 'song';
-          songDiv.textContent = `${index + 1}. ${song.title}`;
+          songDiv.innerHTML = `<span class="song-number">${index + 1}.</span> ${song.title}`;
           
           songDiv.addEventListener('click', () => {
             playSong(song);
             showLyrics(song);
           });
 
-          albumDiv.appendChild(songDiv);
+          songsList.appendChild(songDiv);
         });
 
+        albumDiv.appendChild(songsList);
         albumsContainer.appendChild(albumDiv);
       });
     }
 
     function playSong(song) {
       audioPlayer.src = song.src;
-      audioPlayer.play();
-      nowPlaying.textContent = `Lecture: ${song.title}`;
+      audioPlayer.play()
+        .then(() => {
+          nowPlaying.textContent = `Lecture: ${song.title}`;
+        })
+        .catch(error => {
+          console.error("Erreur de lecture audio:", error);
+          nowPlaying.textContent = `Erreur de lecture: ${song.title}`;
+        });
     }
 
     function showLyrics(song) {
-      if (song.lyrics) {
-        lyricsTitle.textContent = song.title;
-        lyricsText.textContent = song.lyrics;
-        lyricsModal.classList.add('show');
-      } else {
-        lyricsTitle.textContent = song.title;
-        lyricsText.textContent = "Paroles non disponibles.";
-        lyricsModal.classList.add('show');
-      }
+      lyricsTitle.textContent = song.title;
+      lyricsText.textContent = song.lyrics || "Paroles non disponibles.";
+      lyricsModal.classList.add('show');
     }
 
+    // Initialisation
     renderAlbums();
-  </script>
-
+  });
+</script>
 </body>
 </html>
