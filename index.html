@@ -86,7 +86,6 @@
     }
     
     .album-header {
-      background: linear-gradient(135deg, var(--secondary), var(--primary));
       color: white;
       padding: 20px;
       position: relative;
@@ -211,6 +210,11 @@
       .albums-grid {
         grid-template-columns: 1fr;
       }
+      
+      .player-container {
+        position: static;
+        margin-bottom: 20px;
+      }
     }
   </style>
 </head>
@@ -242,255 +246,244 @@
 
   <script>
     const albums = [
-      // Taylor Swift (2006)
       {
         title: "Taylor Swift",
         year: "2006",
         color: "#52b3d9",
         songs: [
-          { title: "Tim McGraw", src: "assets/audio/Tim McGraw.mp3" },
-          { title: "Picture to Burn", src: "assets/audio/Picture to Burn.mp3" },
-          { title: "Teardrops on My Guitar", src: "assets/audio/Teardrops on My Guitar.mp3" },
-          { title: "A Place in This World", src: "assets/audio/A Place in This World.mp3" },
-          { title: "Cold As You", src: "assets/audio/Cold As You.mp3" },
-          { title: "The Outside", src: "assets/audio/The Outside.mp3" },
-          { title: "Tied Together with a Smile", src: "assets/audio/Tied Together with a Smile.mp3" },
-          { title: "Stay Beautiful", src: "assets/audio/Stay Beautiful.mp3" },
-          { title: "Should've Said No", src: "assets/audio/Should've Said No.mp3" },
-          { title: "Mary's Song (Oh My My My)", src: "assets/audio/Mary's Song (Oh My My My).mp3" },
-          { title: "Our Song", src: "assets/audio/Our Song.mp3" }
+          { title: "Tim McGraw", src: "Tim McGraw.mp3" },
+          { title: "Picture to Burn", src: "Picture to Burn.mp3" },
+          { title: "Teardrops on My Guitar", src: "Teardrops on My Guitar.mp3" },
+          { title: "A Place in This World", src: "A Place in This World.mp3" },
+          { title: "Cold As You", src: "Cold As You.mp3" },
+          { title: "The Outside", src: "The Outside.mp3" },
+          { title: "Tied Together with a Smile", src: "Tied Together with a Smile.mp3" },
+          { title: "Stay Beautiful", src: "Stay Beautiful.mp3" },
+          { title: "Should've Said No", src: "Should've Said No.mp3" },
+          { title: "Mary's Song (Oh My My My)", src: "Mary's Song (Oh My My My).mp3" },
+          { title: "Our Song", src: "Our Song.mp3" }
         ]
       },
-      // Fearless (2008)
       {
         title: "Fearless",
         year: "2008",
         color: "#f5d76e",
         songs: [
-          { title: "Fearless", src: "assets/audio/Fearless.mp3" },
-          { title: "Fifteen", src: "assets/audio/Fifteen.mp3" },
-          { title: "Love Story", src: "assets/audio/Love Story.mp3" },
-          { title: "Hey Stephen", src: "assets/audio/Hey Stephen.mp3" },
-          { title: "White Horse", src: "assets/audio/White Horse.mp3" },
-          { title: "You Belong With Me", src: "assets/audio/You Belong With Me.mp3" },
-          { title: "Breathe", src: "assets/audio/Breathe.mp3" },
-          { title: "Tell Me Why", src: "assets/audio/Tell Me Why.mp3" },
-          { title: "You're Not Sorry", src: "assets/audio/You're Not Sorry.mp3" },
-          { title: "The Way I Loved You", src: "assets/audio/The Way I Loved You.mp3" },
-          { title: "Forever & Always", src: "assets/audio/Forever & Always.mp3" },
-          { title: "The Best Day", src: "assets/audio/The Best Day.mp3" },
-          { title: "Change", src: "assets/audio/Change.mp3" }
+          { title: "Fearless", src: "Fearless.mp3" },
+          { title: "Fifteen", src: "Fifteen.mp3" },
+          { title: "Love Story", src: "Love Story.mp3" },
+          { title: "Hey Stephen", src: "Hey Stephen.mp3" },
+          { title: "White Horse", src: "White Horse.mp3" },
+          { title: "You Belong With Me", src: "You Belong With Me.mp3" },
+          { title: "Breathe", src: "Breathe.mp3" },
+          { title: "Tell Me Why", src: "Tell Me Why.mp3" },
+          { title: "You're Not Sorry", src: "You're Not Sorry.mp3" },
+          { title: "The Way I Loved You", src: "The Way I Loved You.mp3" },
+          { title: "Forever & Always", src: "Forever & Always.mp3" },
+          { title: "The Best Day", src: "The Best Day.mp3" },
+          { title: "Change", src: "Change.mp3" }
         ]
       },
-      // Speak Now (2010)
       {
         title: "Speak Now",
         year: "2010",
         color: "#9b59b6",
         songs: [
-          { title: "Mine", src: "assets/audio/Mine.mp3" },
-          { title: "Sparks Fly", src: "assets/audio/Sparks Fly.mp3" },
-          { title: "Back to December", src: "assets/audio/Back to December.mp3" },
-          { title: "Speak Now", src: "assets/audio/Speak Now.mp3" },
-          { title: "Dear John", src: "assets/audio/Dear John.mp3" },
-          { title: "Mean", src: "assets/audio/Mean.mp3" },
-          { title: "The Story of Us", src: "assets/audio/The Story of Us.mp3" },
-          { title: "Never Grow Up", src: "assets/audio/Never Grow Up.mp3" },
-          { title: "Enchanted", src: "assets/audio/Enchanted.mp3" },
-          { title: "Better Than Revenge", src: "assets/audio/Better Than Revenge.mp3" },
-          { title: "Innocent", src: "assets/audio/Innocent.mp3" },
-          { title: "Haunted", src: "assets/audio/Haunted.mp3" },
-          { title: "Last Kiss", src: "assets/audio/Last Kiss.mp3" },
-          { title: "Long Live", src: "assets/audio/Long Live.mp3" }
+          { title: "Mine", src: "Mine.mp3" },
+          { title: "Sparks Fly", src: "Sparks Fly.mp3" },
+          { title: "Back to December", src: "Back to December.mp3" },
+          { title: "Speak Now", src: "Speak Now.mp3" },
+          { title: "Dear John", src: "Dear John.mp3" },
+          { title: "Mean", src: "Mean.mp3" },
+          { title: "The Story of Us", src: "The Story of Us.mp3" },
+          { title: "Never Grow Up", src: "Never Grow Up.mp3" },
+          { title: "Enchanted", src: "Enchanted.mp3" },
+          { title: "Better Than Revenge", src: "Better Than Revenge.mp3" },
+          { title: "Innocent", src: "Innocent.mp3" },
+          { title: "Haunted", src: "Haunted.mp3" },
+          { title: "Last Kiss", src: "Last Kiss.mp3" },
+          { title: "Long Live", src: "Long Live.mp3" }
         ]
       },
-      // Red (2012)
       {
         title: "Red",
         year: "2012",
         color: "#e74c3c",
         songs: [
-          { title: "State of Grace", src: "assets/audio/State of Grace.mp3" },
-          { title: "Red", src: "assets/audio/Red.mp3" },
-          { title: "Treacherous", src: "assets/audio/Treacherous.mp3" },
-          { title: "I Knew You Were Trouble", src: "assets/audio/I Knew You Were Trouble.mp3" },
-          { title: "All Too Well", src: "assets/audio/All Too Well.mp3" },
-          { title: "22", src: "assets/audio/22.mp3" },
-          { title: "I Almost Do", src: "assets/audio/I Almost Do.mp3" },
-          { title: "We Are Never Ever Getting Back Together", src: "assets/audio/We Are Never Ever Getting Back Together.mp3" },
-          { title: "Stay Stay Stay", src: "assets/audio/Stay Stay Stay.mp3" },
-          { title: "The Last Time", src: "assets/audio/The Last Time.mp3" },
-          { title: "Holy Ground", src: "assets/audio/Holy Ground.mp3" },
-          { title: "Sad Beautiful Tragic", src: "assets/audio/Sad Beautiful Tragic.mp3" },
-          { title: "The Lucky One", src: "assets/audio/The Lucky One.mp3" },
-          { title: "Everything Has Changed", src: "assets/audio/Everything Has Changed.mp3" },
-          { title: "Starlight", src: "assets/audio/Starlight.mp3" },
-          { title: "Begin Again", src: "assets/audio/Begin Again.mp3" }
+          { title: "State of Grace", src: "State of Grace.mp3" },
+          { title: "Red", src: "Red.mp3" },
+          { title: "Treacherous", src: "Treacherous.mp3" },
+          { title: "I Knew You Were Trouble", src: "I Knew You Were Trouble.mp3" },
+          { title: "All Too Well", src: "All Too Well.mp3" },
+          { title: "22", src: "22.mp3" },
+          { title: "I Almost Do", src: "I Almost Do.mp3" },
+          { title: "We Are Never Ever Getting Back Together", src: "We Are Never Ever Getting Back Together.mp3" },
+          { title: "Stay Stay Stay", src: "Stay Stay Stay.mp3" },
+          { title: "The Last Time", src: "The Last Time.mp3" },
+          { title: "Holy Ground", src: "Holy Ground.mp3" },
+          { title: "Sad Beautiful Tragic", src: "Sad Beautiful Tragic.mp3" },
+          { title: "The Lucky One", src: "The Lucky One.mp3" },
+          { title: "Everything Has Changed", src: "Everything Has Changed.mp3" },
+          { title: "Starlight", src: "Starlight.mp3" },
+          { title: "Begin Again", src: "Begin Again.mp3" }
         ]
       },
-      // 1989 (2014)
       {
         title: "1989",
         year: "2014",
         color: "#3498db",
         songs: [
-          { title: "Welcome to New York", src: "assets/audio/Welcome to New York.mp3" },
-          { title: "Blank Space", src: "assets/audio/Blank Space.mp3" },
-          { title: "Style", src: "assets/audio/Style.mp3" },
-          { title: "Out of the Woods", src: "assets/audio/Out of the Woods.mp3" },
-          { title: "All You Had To Do Was Stay", src: "assets/audio/All You Had To Do Was Stay.mp3" },
-          { title: "Shake It Off", src: "assets/audio/Shake It Off.mp3" },
-          { title: "I Wish You Would", src: "assets/audio/I Wish You Would.mp3" },
-          { title: "Bad Blood", src: "assets/audio/Bad Blood.mp3" },
-          { title: "Wildest Dreams", src: "assets/audio/Wildest Dreams.mp3" },
-          { title: "How You Get the Girl", src: "assets/audio/How You Get the Girl.mp3" },
-          { title: "This Love", src: "assets/audio/This Love.mp3" },
-          { title: "I Know Places", src: "assets/audio/I Know Places.mp3" },
-          { title: "Clean", src: "assets/audio/Clean.mp3" }
+          { title: "Welcome to New York", src: "Welcome to New York.mp3" },
+          { title: "Blank Space", src: "Blank Space.mp3" },
+          { title: "Style", src: "Style.mp3" },
+          { title: "Out of the Woods", src: "Out of the Woods.mp3" },
+          { title: "All You Had To Do Was Stay", src: "All You Had To Do Was Stay.mp3" },
+          { title: "Shake It Off", src: "Shake It Off.mp3" },
+          { title: "I Wish You Would", src: "I Wish You Would.mp3" },
+          { title: "Bad Blood", src: "Bad Blood.mp3" },
+          { title: "Wildest Dreams", src: "Wildest Dreams.mp3" },
+          { title: "How You Get the Girl", src: "How You Get the Girl.mp3" },
+          { title: "This Love", src: "This Love.mp3" },
+          { title: "I Know Places", src: "I Know Places.mp3" },
+          { title: "Clean", src: "Clean.mp3" }
         ]
       },
-      // Reputation (2017)
       {
         title: "Reputation",
         year: "2017",
         color: "#2c3e50",
         songs: [
-          { title: "...Ready For It?", src: "assets/audio/Ready For It.mp3" },
-          { title: "End Game", src: "assets/audio/End Game.mp3" },
-          { title: "I Did Something Bad", src: "assets/audio/I Did Something Bad.mp3" },
-          { title: "Don't Blame Me", src: "assets/audio/Don't Blame Me.mp3" },
-          { title: "Delicate", src: "assets/audio/Delicate.mp3" },
-          { title: "Look What You Made Me Do", src: "assets/audio/Look What You Made Me Do.mp3" },
-          { title: "So It Goes...", src: "assets/audio/So It Goes.mp3" },
-          { title: "Gorgeous", src: "assets/audio/Gorgeous.mp3" },
-          { title: "Getaway Car", src: "assets/audio/Getaway Car.mp3" },
-          { title: "King of My Heart", src: "assets/audio/King of My Heart.mp3" },
-          { title: "Dancing With Our Hands Tied", src: "assets/audio/Dancing With Our Hands Tied.mp3" },
-          { title: "Dress", src: "assets/audio/Dress.mp3" },
-          { title: "This Is Why We Can't Have Nice Things", src: "assets/audio/This Is Why We Can't Have Nice Things.mp3" },
-          { title: "Call It What You Want", src: "assets/audio/Call It What You Want.mp3" },
-          { title: "New Year's Day", src: "assets/audio/New Year's Day.mp3" }
+          { title: "...Ready For It?", src: "Ready For It.mp3" },
+          { title: "End Game", src: "End Game.mp3" },
+          { title: "I Did Something Bad", src: "I Did Something Bad.mp3" },
+          { title: "Don't Blame Me", src: "Don't Blame Me.mp3" },
+          { title: "Delicate", src: "Delicate.mp3" },
+          { title: "Look What You Made Me Do", src: "Look What You Made Me Do.mp3" },
+          { title: "So It Goes...", src: "So It Goes.mp3" },
+          { title: "Gorgeous", src: "Gorgeous.mp3" },
+          { title: "Getaway Car", src: "Getaway Car.mp3" },
+          { title: "King of My Heart", src: "King of My Heart.mp3" },
+          { title: "Dancing With Our Hands Tied", src: "Dancing With Our Hands Tied.mp3" },
+          { title: "Dress", src: "Dress.mp3" },
+          { title: "This Is Why We Can't Have Nice Things", src: "This Is Why We Can't Have Nice Things.mp3" },
+          { title: "Call It What You Want", src: "Call It What You Want.mp3" },
+          { title: "New Year's Day", src: "New Year's Day.mp3" }
         ]
       },
-      // Lover (2019)
       {
         title: "Lover",
         year: "2019",
         color: "#e84393",
         songs: [
-          { title: "I Forgot That You Existed", src: "assets/audio/I Forgot That You Existed.mp3" },
-          { title: "Cruel Summer", src: "assets/audio/Cruel Summer.mp3" },
-          { title: "Lover", src: "assets/audio/Lover.mp3" },
-          { title: "The Man", src: "assets/audio/The Man.mp3" },
-          { title: "The Archer", src: "assets/audio/The Archer.mp3" },
-          { title: "I Think He Knows", src: "assets/audio/I Think He Knows.mp3" },
-          { title: "Miss Americana & The Heartbreak Prince", src: "assets/audio/Miss Americana & The Heartbreak Prince.mp3" },
-          { title: "Paper Rings", src: "assets/audio/Paper Rings.mp3" },
-          { title: "Cornelia Street", src: "assets/audio/Cornelia Street.mp3" },
-          { title: "Death By A Thousand Cuts", src: "assets/audio/Death By A Thousand Cuts.mp3" },
-          { title: "London Boy", src: "assets/audio/London Boy.mp3" },
-          { title: "Soon You'll Get Better", src: "assets/audio/Soon You'll Get Better.mp3" },
-          { title: "False God", src: "assets/audio/False God.mp3" },
-          { title: "You Need To Calm Down", src: "assets/audio/You Need To Calm Down.mp3" },
-          { title: "Afterglow", src: "assets/audio/Afterglow.mp3" },
-          { title: "Me!", src: "assets/audio/Me!.mp3" },
-          { title: "It's Nice To Have A Friend", src: "assets/audio/It's Nice To Have A Friend.mp3" },
-          { title: "Daylight", src: "assets/audio/Daylight.mp3" }
+          { title: "I Forgot That You Existed", src: "I Forgot That You Existed.mp3" },
+          { title: "Cruel Summer", src: "Cruel Summer.mp3" },
+          { title: "Lover", src: "Lover.mp3" },
+          { title: "The Man", src: "The Man.mp3" },
+          { title: "The Archer", src: "The Archer.mp3" },
+          { title: "I Think He Knows", src: "I Think He Knows.mp3" },
+          { title: "Miss Americana & The Heartbreak Prince", src: "Miss Americana & The Heartbreak Prince.mp3" },
+          { title: "Paper Rings", src: "Paper Rings.mp3" },
+          { title: "Cornelia Street", src: "Cornelia Street.mp3" },
+          { title: "Death By A Thousand Cuts", src: "Death By A Thousand Cuts.mp3" },
+          { title: "London Boy", src: "London Boy.mp3" },
+          { title: "Soon You'll Get Better", src: "Soon You'll Get Better.mp3" },
+          { title: "False God", src: "False God.mp3" },
+          { title: "You Need To Calm Down", src: "You Need To Calm Down.mp3" },
+          { title: "Afterglow", src: "Afterglow.mp3" },
+          { title: "Me!", src: "Me!.mp3" },
+          { title: "It's Nice To Have A Friend", src: "It's Nice To Have A Friend.mp3" },
+          { title: "Daylight", src: "Daylight.mp3" }
         ]
       },
-      // Folklore (2020)
       {
         title: "Folklore",
         year: "2020",
         color: "#636e72",
         songs: [
-          { title: "The 1", src: "assets/audio/The 1.mp3" },
-          { title: "Cardigan", src: "assets/audio/Cardigan.mp3" },
-          { title: "The Last Great American Dynasty", src: "assets/audio/The Last Great American Dynasty.mp3" },
-          { title: "Exile", src: "assets/audio/Exile.mp3" },
-          { title: "My Tears Ricochet", src: "assets/audio/My Tears Ricochet.mp3" },
-          { title: "Mirrorball", src: "assets/audio/Mirrorball.mp3" },
-          { title: "Seven", src: "assets/audio/Seven.mp3" },
-          { title: "August", src: "assets/audio/August.mp3" },
-          { title: "This Is Me Trying", src: "assets/audio/This Is Me Trying.mp3" },
-          { title: "Illicit Affairs", src: "assets/audio/Illicit Affairs.mp3" },
-          { title: "Invisible String", src: "assets/audio/Invisible String.mp3" },
-          { title: "Mad Woman", src: "assets/audio/Mad Woman.mp3" },
-          { title: "Epiphany", src: "assets/audio/Epiphany.mp3" },
-          { title: "Betty", src: "assets/audio/Betty.mp3" },
-          { title: "Peace", src: "assets/audio/Peace.mp3" },
-          { title: "Hoax", src: "assets/audio/Hoax.mp3" }
+          { title: "The 1", src: "The 1.mp3" },
+          { title: "Cardigan", src: "Cardigan.mp3" },
+          { title: "The Last Great American Dynasty", src: "The Last Great American Dynasty.mp3" },
+          { title: "Exile", src: "Exile.mp3" },
+          { title: "My Tears Ricochet", src: "My Tears Ricochet.mp3" },
+          { title: "Mirrorball", src: "Mirrorball.mp3" },
+          { title: "Seven", src: "Seven.mp3" },
+          { title: "August", src: "August.mp3" },
+          { title: "This Is Me Trying", src: "This Is Me Trying.mp3" },
+          { title: "Illicit Affairs", src: "Illicit Affairs.mp3" },
+          { title: "Invisible String", src: "Invisible String.mp3" },
+          { title: "Mad Woman", src: "Mad Woman.mp3" },
+          { title: "Epiphany", src: "Epiphany.mp3" },
+          { title: "Betty", src: "Betty.mp3" },
+          { title: "Peace", src: "Peace.mp3" },
+          { title: "Hoax", src: "Hoax.mp3" }
         ]
       },
-      // Evermore (2020)
       {
         title: "Evermore",
         year: "2020",
         color: "#a29bfe",
         songs: [
-          { title: "Willow", src: "assets/audio/Willow.mp3" },
-          { title: "Champagne Problems", src: "assets/audio/Champagne Problems.mp3" },
-          { title: "Gold Rush", src: "assets/audio/Gold Rush.mp3" },
-          { title: "'Tis the Damn Season", src: "assets/audio/'Tis the Damn Season.mp3" },
-          { title: "Tolerate It", src: "assets/audio/Tolerate It.mp3" },
-          { title: "No Body No Crime", src: "assets/audio/No Body No Crime.mp3" },
-          { title: "Happiness", src: "assets/audio/Happiness.mp3" },
-          { title: "Dorothea", src: "assets/audio/Dorothea.mp3" },
-          { title: "Coney Island", src: "assets/audio/Coney Island.mp3" },
-          { title: "Ivy", src: "assets/audio/Ivy.mp3" },
-          { title: "Cowboy Like Me", src: "assets/audio/Cowboy Like Me.mp3" },
-          { title: "Long Story Short", src: "assets/audio/Long Story Short.mp3" },
-          { title: "Marjorie", src: "assets/audio/Marjorie.mp3" },
-          { title: "Closure", src: "assets/audio/Closure.mp3" },
-          { title: "Evermore", src: "assets/audio/Evermore.mp3" }
+          { title: "Willow", src: "Willow.mp3" },
+          { title: "Champagne Problems", src: "Champagne Problems.mp3" },
+          { title: "Gold Rush", src: "Gold Rush.mp3" },
+          { title: "'Tis the Damn Season", src: "'Tis the Damn Season.mp3" },
+          { title: "Tolerate It", src: "Tolerate It.mp3" },
+          { title: "No Body No Crime", src: "No Body No Crime.mp3" },
+          { title: "Happiness", src: "Happiness.mp3" },
+          { title: "Dorothea", src: "Dorothea.mp3" },
+          { title: "Coney Island", src: "Coney Island.mp3" },
+          { title: "Ivy", src: "Ivy.mp3" },
+          { title: "Cowboy Like Me", src: "Cowboy Like Me.mp3" },
+          { title: "Long Story Short", src: "Long Story Short.mp3" },
+          { title: "Marjorie", src: "Marjorie.mp3" },
+          { title: "Closure", src: "Closure.mp3" },
+          { title: "Evermore", src: "Evermore.mp3" }
         ]
       },
-      // Midnights (2022)
       {
         title: "Midnights",
         year: "2022",
         color: "#0984e3",
         songs: [
-          { title: "Lavender Haze", src: "assets/audio/Lavender Haze.mp3" },
-          { title: "Maroon", src: "assets/audio/Maroon.mp3" },
-          { title: "Anti-Hero", src: "assets/audio/Anti-Hero.mp3" },
-          { title: "Snow On The Beach", src: "assets/audio/Snow On The Beach.mp3" },
-          { title: "You're On Your Own Kid", src: "assets/audio/You're On Your Own Kid.mp3" },
-          { title: "Midnight Rain", src: "assets/audio/Midnight Rain.mp3" },
-          { title: "Question...?", src: "assets/audio/Question....mp3" },
-          { title: "Vigilante Shit", src: "assets/audio/Vigilante Shit.mp3" },
-          { title: "Bejeweled", src: "assets/audio/Bejeweled.mp3" },
-          { title: "Labyrinth", src: "assets/audio/Labyrinth.mp3" },
-          { title: "Karma", src: "assets/audio/Karma.mp3" },
-          { title: "Sweet Nothing", src: "assets/audio/Sweet Nothing.mp3" },
-          { title: "Mastermind", src: "assets/audio/Mastermind.mp3" }
+          { title: "Lavender Haze", src: "Lavender Haze.mp3" },
+          { title: "Maroon", src: "Maroon.mp3" },
+          { title: "Anti-Hero", src: "Anti-Hero.mp3" },
+          { title: "Snow On The Beach", src: "Snow On The Beach.mp3" },
+          { title: "You're On Your Own Kid", src: "You're On Your Own Kid.mp3" },
+          { title: "Midnight Rain", src: "Midnight Rain.mp3" },
+          { title: "Question...?", src: "Question....mp3" },
+          { title: "Vigilante Shit", src: "Vigilante Shit.mp3" },
+          { title: "Bejeweled", src: "Bejeweled.mp3" },
+          { title: "Labyrinth", src: "Labyrinth.mp3" },
+          { title: "Karma", src: "Karma.mp3" },
+          { title: "Sweet Nothing", src: "Sweet Nothing.mp3" },
+          { title: "Mastermind", src: "Mastermind.mp3" }
         ]
       },
-      // The Tortured Poets Department (2024)
       {
         title: "The Tortured Poets Department",
         year: "2024",
         color: "#6c5ce7",
         songs: [
-          { title: "Fortnight", src: "assets/audio/Fortnight.mp3" },
-          { title: "The Tortured Poets Department", src: "assets/audio/The Tortured Poets Department.mp3" },
-          { title: "My Boy Only Breaks His Favorite Toys", src: "assets/audio/My Boy Only Breaks His Favorite Toys.mp3" },
-          { title: "Down Bad", src: "assets/audio/Down Bad.mp3" },
-          { title: "So Long, London", src: "assets/audio/So Long, London.mp3" },
-          { title: "But Daddy I Love Him", src: "assets/audio/But Daddy I Love Him.mp3" },
-          { title: "Fresh Out the Slammer", src: "assets/audio/Fresh Out the Slammer.mp3" },
-          { title: "Florida!!!", src: "assets/audio/Florida!!!.mp3" },
-          { title: "Guilty As Sin?", src: "assets/audio/Guilty As Sin.mp3" },
-          { title: "Who's Afraid of Little Old Me?", src: "assets/audio/Who's Afraid of Little Old Me.mp3" },
-          { title: "I Can Fix Him (No Really I Can)", src: "assets/audio/I Can Fix Him.mp3" },
-          { title: "loml", src: "assets/audio/loml.mp3" },
-          { title: "I Can Do It With A Broken Heart", src: "assets/audio/I Can Do It With A Broken Heart.mp3" },
-          { title: "The Smallest Man Who Ever Lived", src: "assets/audio/The Smallest Man Who Ever Lived.mp3" },
-          { title: "The Albatross", src: "assets/audio/The Albatross.mp3" },
-          { title: "Chloe or Sam or Sophia or Marcus", src: "assets/audio/Chloe or Sam or Sophia or Marcus.mp3" },
-          { title: "How Did It End?", src: "assets/audio/How Did It End.mp3" },
-          { title: "The Black Dog", src: "assets/audio/The Black Dog.mp3" },
-          { title: "Imgonnagetyouback", src: "assets/audio/Imgonnagetyouback.mp3" }
+          { title: "Fortnight", src: "Fortnight.mp3" },
+          { title: "The Tortured Poets Department", src: "The Tortured Poets Department.mp3" },
+          { title: "My Boy Only Breaks His Favorite Toys", src: "My Boy Only Breaks His Favorite Toys.mp3" },
+          { title: "Down Bad", src: "Down Bad.mp3" },
+          { title: "So Long, London", src: "So Long, London.mp3" },
+          { title: "But Daddy I Love Him", src: "But Daddy I Love Him.mp3" },
+          { title: "Fresh Out the Slammer", src: "Fresh Out the Slammer.mp3" },
+          { title: "Florida!!!", src: "Florida!!!.mp3" },
+          { title: "Guilty As Sin?", src: "Guilty As Sin.mp3" },
+          { title: "Who's Afraid of Little Old Me?", src: "Who's Afraid of Little Old Me.mp3" },
+          { title: "I Can Fix Him (No Really I Can)", src: "I Can Fix Him.mp3" },
+          { title: "loml", src: "loml.mp3" },
+          { title: "I Can Do It With A Broken Heart", src: "I Can Do It With A Broken Heart.mp3" },
+          { title: "The Smallest Man Who Ever Lived", src: "The Smallest Man Who Ever Lived.mp3" },
+          { title: "The Albatross", src: "The Albatross.mp3" },
+          { title: "Chloe or Sam or Sophia or Marcus", src: "Chloe or Sam or Sophia or Marcus.mp3" },
+          { title: "How Did It End?", src: "How Did It End.mp3" },
+          { title: "The Black Dog", src: "The Black Dog.mp3" },
+          { title: "Imgonnagetyouback", src: "Imgonnagetyouback.mp3" }
         ]
       }
     ];
@@ -502,6 +495,22 @@
     
     let currentSong = null;
     let currentAlbum = null;
+
+    // Helper function to darken a color
+    function darkenColor(color, percent) {
+      const num = parseInt(color.replace("#", ""), 16);
+      const amt = Math.round(2.55 * percent);
+      const R = Math.max((num >> 16) - amt, 0);
+      const G = Math.max((num >> 8 & 0x00FF) - amt, 0);
+      const B = Math.max((num & 0x0000FF) - amt, 0);
+      
+      return "#" + (
+        0x1000000 +
+        (R < 255 ? R : 255) * 0x10000 +
+        (G < 255 ? G : 255) * 0x100 +
+        (B < 255 ? B : 255)
+      ).toString(16).slice(1);
+    }
 
     // Create album cards
     albums.forEach(album => {
@@ -534,8 +543,8 @@
       album.songs.forEach((song, index) => {
         const songItem = document.createElement("li");
         songItem.classList.add("song-item");
-        songItem.setAttribute("data-album", album.title);
-        songItem.setAttribute("data-src", song.src);
+        songItem.dataset.album = album.title;
+        songItem.dataset.src = song.src;
         
         const songNumber = document.createElement("span");
         songNumber.classList.add("song-number");
@@ -557,7 +566,7 @@
           
           // Play song
           audioPlayer.src = song.src;
-          audioPlayer.play();
+          audioPlayer.play().catch(e => console.error("Erreur de lecture:", e));
           
           // Update now playing info
           nowPlayingTitle.textContent = song.title;
@@ -575,22 +584,6 @@
       albumCard.appendChild(albumSongs);
       container.appendChild(albumCard);
     });
-    
-    // Helper function to darken a color
-    function darkenColor(color, percent) {
-      const num = parseInt(color.replace("#", ""), 16);
-      const amt = Math.round(2.55 * percent);
-      const R = (num >> 16) - amt;
-      const G = (num >> 8 & 0x00FF) - amt;
-      const B = (num & 0x0000FF) - amt;
-      
-      return "#" + (
-        0x1000000 +
-        (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 +
-        (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 +
-        (B < 255 ? B < 1 ? 0 : B : 255)
-      ).toString(16).slice(1);
-    }
     
     // Update player when song ends
     audioPlayer.addEventListener("ended", () => {
