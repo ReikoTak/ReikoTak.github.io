@@ -3,64 +3,250 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Les chansons de Taylor Swift</title>
+  <title>Taylor Swift - Discographie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f0f0f0;
-      padding: 30px;
-      text-align: center;
+    :root {
+      --primary: #e74c3c;
+      --secondary: #3498db;
+      --dark: #2c3e50;
+      --light: #ecf0f1;
+      --accent: #f1c40f;
     }
-
-    h1 {
-      color: #333;
-    }
-
-    .album {
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      padding: 20px;
-      max-width: 600px;
-      margin: 20px auto;
-    }
-
-    audio {
-      width: 100%;
-      margin-top: 30px;
-    }
-
-    ul {
-      list-style: none;
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
       padding: 0;
     }
-
-    li {
-      margin: 10px 0;
-      cursor: pointer;
-      color: #007acc;
-      text-decoration: underline;
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+      color: var(--dark);
+      line-height: 1.6;
     }
-
-    li:hover {
-      color: #005999;
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+      position: relative;
+    }
+    
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .subtitle {
+      font-size: 1.2rem;
+      color: var(--dark);
+      opacity: 0.8;
+      margin-bottom: 20px;
+    }
+    
+    .divider {
+      height: 4px;
+      width: 100px;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      margin: 0 auto 30px;
+      border-radius: 2px;
+    }
+    
+    .albums-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    
+    .album-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .album-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    }
+    
+    .album-header {
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+      color: white;
+      padding: 20px;
+      position: relative;
+    }
+    
+    .album-year {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(255,255,255,0.2);
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    
+    .album-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      margin-bottom: 5px;
+    }
+    
+    .album-songs {
+      padding: 20px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    
+    .song-list {
+      list-style: none;
+    }
+    
+    .song-item {
+      padding: 12px 15px;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      cursor: pointer;
+      transition: background 0.2s ease;
+      display: flex;
+      align-items: center;
+    }
+    
+    .song-item:last-child {
+      border-bottom: none;
+    }
+    
+    .song-item:hover {
+      background: rgba(231, 76, 60, 0.1);
+    }
+    
+    .song-item.active {
+      background: rgba(231, 76, 60, 0.2);
+      font-weight: 600;
+    }
+    
+    .song-number {
+      color: var(--primary);
+      font-weight: 600;
+      margin-right: 15px;
+      min-width: 25px;
+    }
+    
+    .player-container {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      margin-top: 30px;
+      position: sticky;
+      bottom: 20px;
+    }
+    
+    .now-playing {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .now-playing-info {
+      flex-grow: 1;
+    }
+    
+    .now-playing-title {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--primary);
+    }
+    
+    .now-playing-album {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+    
+    audio {
+      width: 100%;
+      border-radius: 10px;
+    }
+    
+    audio::-webkit-media-controls-panel {
+      background: var(--light);
+    }
+    
+    /* Scrollbar styling */
+    .album-songs::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    .album-songs::-webkit-scrollbar-track {
+      background: rgba(0,0,0,0.05);
+      border-radius: 10px;
+    }
+    
+    .album-songs::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 10px;
+    }
+    
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+      
+      .albums-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>🎵 Taylor Swift 🎵</h1>
-  <div id="albums-container"></div>
-
-  <audio id="audioPlayer" controls>
-    <source src="" type="audio/mp3" />
-    Ton navigateur ne supporte pas l'élément audio.
-  </audio>
+  <div class="container">
+    <header>
+      <h1>Taylor Swift</h1>
+      <p class="subtitle">Discographie complète</p>
+      <div class="divider"></div>
+    </header>
+    
+    <main>
+      <div class="albums-grid" id="albums-container"></div>
+      
+      <div class="player-container">
+        <div class="now-playing">
+          <div class="now-playing-info">
+            <div class="now-playing-title" id="now-playing-title">Sélectionnez une chanson</div>
+            <div class="now-playing-album" id="now-playing-album"></div>
+          </div>
+        </div>
+        <audio id="audioPlayer" controls>
+          <source src="" type="audio/mp3" />
+          Votre navigateur ne supporte pas l'élément audio.
+        </audio>
+      </div>
+    </main>
+  </div>
 
   <script>
     const albums = [
       // Taylor Swift (2006)
       {
-        title: "Taylor Swift (2006)",
+        title: "Taylor Swift",
+        year: "2006",
+        color: "#52b3d9",
         songs: [
           { title: "Tim McGraw", src: "Tim McGraw.mp3" },
           { title: "Picture to Burn", src: "Picture to Burn.mp3" },
@@ -77,7 +263,9 @@
       },
       // Fearless (2008)
       {
-        title: "Fearless (2008)",
+        title: "Fearless",
+        year: "2008",
+        color: "#f5d76e",
         songs: [
           { title: "Fearless", src: "Fearless.mp3" },
           { title: "Fifteen", src: "Fifteen.mp3" },
@@ -96,7 +284,9 @@
       },
       // Speak Now (2010)
       {
-        title: "Speak Now (2010)",
+        title: "Speak Now",
+        year: "2010",
+        color: "#9b59b6",
         songs: [
           { title: "Mine", src: "Mine.mp3" },
           { title: "Sparks Fly", src: "Sparks Fly.mp3" },
@@ -116,7 +306,9 @@
       },
       // Red (2012)
       {
-        title: "Red (2012)",
+        title: "Red",
+        year: "2012",
+        color: "#e74c3c",
         songs: [
           { title: "State of Grace", src: "State of Grace.mp3" },
           { title: "Red", src: "Red.mp3" },
@@ -138,7 +330,9 @@
       },
       // 1989 (2014)
       {
-        title: "1989 (2014)",
+        title: "1989",
+        year: "2014",
+        color: "#3498db",
         songs: [
           { title: "Welcome to New York", src: "Welcome to New York.mp3" },
           { title: "Blank Space", src: "Blank Space.mp3" },
@@ -157,7 +351,9 @@
       },
       // Reputation (2017)
       {
-        title: "Reputation (2017)",
+        title: "Reputation",
+        year: "2017",
+        color: "#2c3e50",
         songs: [
           { title: "...Ready For It?", src: "Ready For It.mp3" },
           { title: "End Game", src: "End Game.mp3" },
@@ -178,7 +374,9 @@
       },
       // Lover (2019)
       {
-        title: "Lover (2019)",
+        title: "Lover",
+        year: "2019",
+        color: "#e84393",
         songs: [
           { title: "I Forgot That You Existed", src: "I Forgot That You Existed.mp3" },
           { title: "Cruel Summer", src: "Cruel Summer.mp3" },
@@ -202,7 +400,9 @@
       },
       // Folklore (2020)
       {
-        title: "Folklore (2020)",
+        title: "Folklore",
+        year: "2020",
+        color: "#636e72",
         songs: [
           { title: "The 1", src: "The 1.mp3" },
           { title: "Cardigan", src: "Cardigan.mp3" },
@@ -224,7 +424,9 @@
       },
       // Evermore (2020)
       {
-        title: "Evermore (2020)",
+        title: "Evermore",
+        year: "2020",
+        color: "#a29bfe",
         songs: [
           { title: "Willow", src: "Willow.mp3" },
           { title: "Champagne Problems", src: "Champagne Problems.mp3" },
@@ -245,7 +447,9 @@
       },
       // Midnights (2022)
       {
-        title: "Midnights (2022)",
+        title: "Midnights",
+        year: "2022",
+        color: "#0984e3",
         songs: [
           { title: "Lavender Haze", src: "Lavender Haze.mp3" },
           { title: "Maroon", src: "Maroon.mp3" },
@@ -264,7 +468,9 @@
       },
       // The Tortured Poets Department (2024)
       {
-        title: "The Tortured Poets Department (2024)",
+        title: "The Tortured Poets Department",
+        year: "2024",
+        color: "#6c5ce7",
         songs: [
           { title: "Fortnight", src: "Fortnight.mp3" },
           { title: "The Tortured Poets Department", src: "The Tortured Poets Department.mp3" },
@@ -284,53 +490,123 @@
           { title: "Chloe or Sam or Sophia or Marcus", src: "Chloe or Sam or Sophia or Marcus.mp3" },
           { title: "How Did It End?", src: "How Did It End.mp3" },
           { title: "The Black Dog", src: "The Black Dog.mp3" },
-          { title: "Imgonnagetyouback", src: "Imgonnagetyouback.mp3" },
-          { title: "The Albatross", src: "The Albatross.mp3" },
-          { title: "Chloe or Sam or Sophia or Marcus", src: "Chloe or Sam or Sophia or Marcus.mp3" },
-          { title: "How Did It End?", src: "How Did It End.mp3" },
-          { title: "So High School", src: "So High School.mp3" },
-          { title: "I Hate It Here", src: "I Hate It Here.mp3" },
-          { title: "Thank You Aimee", src: "Thank You Aimee.mp3" },
-          { title: "I Look in People's Windows", src: "I Look in People's Windows.mp3" },
-          { title: "The Prophecy", src: "The Prophecy.mp3" },
-          { title: "Cassandra", src: "Cassandra.mp3" },
-          { title: "Peter", src: "Peter.mp3" },
-          { title: "The Bolter", src: "The Bolter.mp3" },
-          { title: "Robin", src: "Robin.mp3" },
-          { title: "The Manuscript", src: "The Manuscript.mp3" }
+          { title: "Imgonnagetyouback", src: "Imgonnagetyouback.mp3" }
         ]
       }
     ];
 
     const container = document.getElementById("albums-container");
     const audioPlayer = document.getElementById("audioPlayer");
+    const nowPlayingTitle = document.getElementById("now-playing-title");
+    const nowPlayingAlbum = document.getElementById("now-playing-album");
+    
+    let currentSong = null;
+    let currentAlbum = null;
 
+    // Create album cards
     albums.forEach(album => {
-      const albumDiv = document.createElement("div");
-      albumDiv.classList.add("album");
-
-      const title = document.createElement("h2");
-      title.textContent = `Album : ${album.title}`;
-      albumDiv.appendChild(title);
-
-      const instruction = document.createElement("p");
-      instruction.textContent = "Cliquez sur la chanson que vous souhaitez écouter :";
-      albumDiv.appendChild(instruction);
-
-      const ul = document.createElement("ul");
-      album.songs.forEach(song => {
-        const li = document.createElement("li");
-        li.textContent = song.title;
-        li.setAttribute("data-src", song.src);
-        li.addEventListener("click", () => {
+      const albumCard = document.createElement("div");
+      albumCard.classList.add("album-card");
+      
+      // Album header with gradient
+      const albumHeader = document.createElement("div");
+      albumHeader.classList.add("album-header");
+      albumHeader.style.background = `linear-gradient(135deg, ${album.color}, ${darkenColor(album.color, 20)})`;
+      
+      const albumYear = document.createElement("div");
+      albumYear.classList.add("album-year");
+      albumYear.textContent = album.year;
+      
+      const albumTitle = document.createElement("h2");
+      albumTitle.classList.add("album-title");
+      albumTitle.textContent = album.title;
+      
+      albumHeader.appendChild(albumYear);
+      albumHeader.appendChild(albumTitle);
+      
+      // Songs list
+      const albumSongs = document.createElement("div");
+      albumSongs.classList.add("album-songs");
+      
+      const songList = document.createElement("ul");
+      songList.classList.add("song-list");
+      
+      album.songs.forEach((song, index) => {
+        const songItem = document.createElement("li");
+        songItem.classList.add("song-item");
+        songItem.setAttribute("data-album", album.title);
+        songItem.setAttribute("data-src", song.src);
+        
+        const songNumber = document.createElement("span");
+        songNumber.classList.add("song-number");
+        songNumber.textContent = (index + 1).toString().padStart(2, '0');
+        
+        const songTitle = document.createTextNode(song.title);
+        
+        songItem.appendChild(songNumber);
+        songItem.appendChild(songTitle);
+        
+        songItem.addEventListener("click", () => {
+          // Remove active class from all songs
+          document.querySelectorAll(".song-item").forEach(item => {
+            item.classList.remove("active");
+          });
+          
+          // Add active class to clicked song
+          songItem.classList.add("active");
+          
+          // Play song
           audioPlayer.src = song.src;
           audioPlayer.play();
+          
+          // Update now playing info
+          nowPlayingTitle.textContent = song.title;
+          nowPlayingAlbum.textContent = `${album.title} (${album.year})`;
+          
+          currentSong = song.title;
+          currentAlbum = album.title;
         });
-        ul.appendChild(li);
+        
+        songList.appendChild(songItem);
       });
-
-      albumDiv.appendChild(ul);
-      container.appendChild(albumDiv);
+      
+      albumSongs.appendChild(songList);
+      albumCard.appendChild(albumHeader);
+      albumCard.appendChild(albumSongs);
+      container.appendChild(albumCard);
+    });
+    
+    // Helper function to darken a color
+    function darkenColor(color, percent) {
+      const num = parseInt(color.replace("#", ""), 16);
+      const amt = Math.round(2.55 * percent);
+      const R = (num >> 16) - amt;
+      const G = (num >> 8 & 0x00FF) - amt;
+      const B = (num & 0x0000FF) - amt;
+      
+      return "#" + (
+        0x1000000 +
+        (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 +
+        (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 +
+        (B < 255 ? B < 1 ? 0 : B : 255)
+      ).toString(16).slice(1);
+    }
+    
+    // Update player when song ends
+    audioPlayer.addEventListener("ended", () => {
+      if (currentSong && currentAlbum) {
+        const currentAlbumObj = albums.find(a => a.title === currentAlbum);
+        if (currentAlbumObj) {
+          const currentIndex = currentAlbumObj.songs.findIndex(s => s.title === currentSong);
+          if (currentIndex < currentAlbumObj.songs.length - 1) {
+            const nextSong = currentAlbumObj.songs[currentIndex + 1];
+            const nextSongElement = document.querySelector(`.song-item[data-src="${nextSong.src}"]`);
+            if (nextSongElement) {
+              nextSongElement.click();
+            }
+          }
+        }
+      }
     });
   </script>
 </body>
