@@ -148,6 +148,10 @@
       min-width: 25px;
     }
     
+    .song-title {
+      flex-grow: 1;
+    }
+    
     .lyrics-btn {
       background: none;
       border: none;
@@ -157,7 +161,7 @@
       padding: 5px 10px;
       border-radius: 15px;
       transition: all 0.2s ease;
-      margin-left: auto;
+      margin-left: 10px;
     }
     
     .lyrics-btn:hover {
@@ -330,7 +334,6 @@
       <div class="lyrics-text" id="lyricsText"></div>
     </div>
   </div>
-
   <script>
     const albums = [
       {
@@ -1016,127 +1019,133 @@
         ]
       }
     ];
+    document.addEventListener('DOMContentLoaded', function() {
+      const albumsContainer = document.getElementById('albums-container');
+      const audioPlayer = document.getElementById('audioPlayer');
+      const nowPlayingTitle = document.getElementById('now-playing-title');
+      const nowPlayingAlbum = document.getElementById('now-playing-album');
+      const lyricsModal = document.getElementById('lyricsModal');
+      const lyricsTitle = document.getElementById('lyricsTitle');
+      const lyricsAlbum = document.getElementById('lyricsAlbum');
+      const lyricsText = document.getElementById('lyricsText');
+      const closeLyrics = document.getElementById('closeLyrics');
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const albumsContainer = document.getElementById('albums-container');
-    const audioPlayer = document.getElementById('audioPlayer');
-    const nowPlayingTitle = document.getElementById('now-playing-title');
-    const nowPlayingAlbum = document.getElementById('now-playing-album');
+      let currentSong = null;
+      let currentAlbum = null;
 
-    const lyricsModal = document.getElementById('lyricsModal');
-    const lyricsTitle = document.getElementById('lyricsTitle');
-    const lyricsAlbum = document.getElementById('lyricsAlbum');
-    const lyricsText = document.getElementById('lyricsText');
-    const closeLyrics = document.getElementById('closeLyrics');
-
-    // Variables pour suivre la chanson active
-    let currentSong = null;
-    let currentAlbum = null;
-
-    // Fermer la modale
-    closeLyrics.addEventListener('click', () => {
-      lyricsModal.classList.remove('show');
-    });
-
-    // Fermer la modale en cliquant à l'extérieur
-    lyricsModal.addEventListener('click', (e) => {
-      if (e.target === lyricsModal) {
+      // Fermer la modale
+      closeLyrics.addEventListener('click', () => {
         lyricsModal.classList.remove('show');
-      }
-    });
+      });
 
-    function renderAlbums() {
-      albumsContainer.innerHTML = '';
-      
-      albums.forEach(album => {
-        const albumCard = document.createElement('div');
-        albumCard.className = 'album-card';
+      // Fermer en cliquant à l'extérieur
+      lyricsModal.addEventListener('click', (e) => {
+        if (e.target === lyricsModal) {
+          lyricsModal.classList.remove('show');
+        }
+      });
 
-        const albumHeader = document.createElement('div');
-        albumHeader.className = 'album-header';
-        albumHeader.style.background = `linear-gradient(135deg, ${album.color}, ${darkenColor(album.color, 20)})`;
+      // Rendre les albums
+      function renderAlbums() {
+        albumsContainer.innerHTML = '';
         
-        const albumYear = document.createElement('div');
-        albumYear.className = 'album-year';
-        albumYear.textContent = album.year;
-        
-        const albumTitle = document.createElement('h2');
-        albumTitle.className = 'album-title';
-        albumTitle.textContent = album.title;
-        
-        albumHeader.appendChild(albumYear);
-        albumHeader.appendChild(albumTitle);
-        
-        const albumSongs = document.createElement('div');
-        albumSongs.className = 'album-songs';
-        
-        const songList = document.createElement('ul');
-        songList.className = 'song-list';
-        
-        album.songs.forEach((song, index) => {
-          const songItem = document.createElement('li');
-          songItem.className = 'song-item';
-          songItem.innerHTML = `
-            <span class="song-number">${index + 1}.</span>
-            <span class="song-title">${song.title}</span>
-            <button class="lyrics-btn">Paroles</button>
-          `;
+        albums.forEach(album => {
+          const albumCard = document.createElement('div');
+          albumCard.className = 'album-card';
+          albumCard.style.border = `2px solid ${album.color}`;
+
+          const albumHeader = document.createElement('div');
+          albumHeader.className = 'album-header';
+          albumHeader.style.background = `linear-gradient(135deg, ${album.color}, ${darkenColor(album.color, 20)})`;
           
-          songItem.addEventListener('click', () => {
-            // Retirer la classe active de l'ancienne chanson
-            document.querySelectorAll('.song-item.active').forEach(item => {
-              item.classList.remove('active');
+          const albumYear = document.createElement('div');
+          albumYear.className = 'album-year';
+          albumYear.textContent = album.year;
+          
+          const albumTitle = document.createElement('h2');
+          albumTitle.className = 'album-title';
+          albumTitle.textContent = album.title;
+          
+          albumHeader.appendChild(albumYear);
+          albumHeader.appendChild(albumTitle);
+          
+          const albumSongs = document.createElement('div');
+          albumSongs.className = 'album-songs';
+          
+          const songList = document.createElement('ul');
+          songList.className = 'song-list';
+          
+          album.songs.forEach((song, index) => {
+            const songItem = document.createElement('li');
+            songItem.className = 'song-item';
+            songItem.innerHTML = `
+              <span class="song-number">${index + 1}.</span>
+              <span class="song-title">${song.title}</span>
+              <button class="lyrics-btn">Paroles</button>
+            `;
+            
+            songItem.addEventListener('click', () => {
+              // Mettre à jour la sélection active
+              document.querySelectorAll('.song-item.active').forEach(item => {
+                item.classList.remove('active');
+              });
+              songItem.classList.add('active');
+              
+              playSong(song, album);
+            });
+
+            // Bouton paroles
+            const lyricsBtn = songItem.querySelector('.lyrics-btn');
+            lyricsBtn.addEventListener('click', (e) => {
+              e.stopPropagation(); // Empêcher le déclenchement du click sur songItem
+              showLyrics(song, album);
             });
             
-            // Ajouter la classe active à la nouvelle chanson
-            songItem.classList.add('active');
-            
-            playSong(song, album);
-            showLyrics(song, album);
+            songList.appendChild(songItem);
           });
-
-          songList.appendChild(songItem);
+          
+          albumSongs.appendChild(songList);
+          albumCard.appendChild(albumHeader);
+          albumCard.appendChild(albumSongs);
+          albumsContainer.appendChild(albumCard);
         });
+      }
+
+      // Fonction pour assombrir une couleur
+      function darkenColor(color, percent) {
+        // Implémentation simplifiée - utiliser une librairie de couleur en production
+        return color;
+      }
+
+      // Jouer une chanson
+      function playSong(song, album) {
+        currentSong = song;
+        currentAlbum = album;
         
-        albumSongs.appendChild(songList);
-        albumCard.appendChild(albumHeader);
-        albumCard.appendChild(albumSongs);
-        albumsContainer.appendChild(albumCard);
-      });
-    }
+        audioPlayer.src = song.src;
+        audioPlayer.play()
+          .then(() => {
+            nowPlayingTitle.textContent = song.title;
+            nowPlayingAlbum.textContent = `de l'album ${album.title} (${album.year})`;
+          })
+          .catch(error => {
+            console.error("Erreur de lecture:", error);
+            nowPlayingTitle.textContent = "Erreur de lecture";
+            nowPlayingAlbum.textContent = song.title;
+          });
+      }
 
-    function darkenColor(color, percent) {
-      // Fonction pour assombrir une couleur hex
-      // Implémentation simplifiée - en production utiliser une librairie de couleur
-      return color; // À implémenter correctement
-    }
+      // Afficher les paroles
+      function showLyrics(song, album) {
+        lyricsTitle.textContent = song.title;
+        lyricsAlbum.textContent = `Album: ${album.title} (${album.year})`;
+        lyricsText.textContent = song.lyrics || "Paroles non disponibles.";
+        lyricsModal.classList.add('show');
+      }
 
-    function playSong(song, album) {
-      currentSong = song;
-      currentAlbum = album;
-      
-      audioPlayer.src = song.src;
-      audioPlayer.play()
-        .then(() => {
-          nowPlayingTitle.textContent = song.title;
-          nowPlayingAlbum.textContent = `de l'album ${album.title} (${album.year})`;
-        })
-        .catch(error => {
-          console.error("Erreur de lecture audio:", error);
-          nowPlayingTitle.textContent = `Erreur de lecture: ${song.title}`;
-          nowPlayingAlbum.textContent = '';
-        });
-    }
-
-    function showLyrics(song, album) {
-      lyricsTitle.textContent = song.title;
-      lyricsAlbum.textContent = `de l'album ${album.title} (${album.year})`;
-      lyricsText.textContent = song.lyrics || "Paroles non disponibles.";
-      lyricsModal.classList.add('show');
-    }
-
-    // Initialisation
-    renderAlbums();
-  });
-</script>
+      // Initialisation
+      renderAlbums();
+    });
+  </script>
+</body>
+</html>
