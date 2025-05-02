@@ -766,91 +766,60 @@ const albums = [
               showLyrics(song, album);
             });
             
-            songList.appendChild(songItem);
-          });
-          
-          albumSongs.appendChild(songList);
-          albumCard.appendChild(albumHeader);
-          albumCard.appendChild(albumSongs);
-          albumsContainer.appendChild(albumCard);
-        });
-      }
-      
-      // Fonction pour assombrir une couleur
-      function darkenColor(color, percent) {
-        // Implémentation simplifiée - utiliser une librairie de couleur en production
-        return color;
-      }
-
-      // Jouer une chanson
-      function playSong(song, album) {
-        currentSong = song;
-        currentAlbum = album;
-        
-        audioPlayer.src = song.src;
-        audioPlayer.play()
-          .then(() => {
-            nowPlayingTitle.textContent = song.title;
-            nowPlayingAlbum.textContent = `from ${album.title} (${album.year})`;
-          })
-          .catch(error => {
-            console.error("Audio playback error:", error);
-            nowPlayingTitle.textContent = "Audio playback error";
-            nowPlayingAlbum.textContent = song.title;
-          });
-      }
-
-      // Afficher les paroles
-      function showLyrics(song, album) {
-        lyricsTitle.textContent = song.title;
-        lyricsAlbum.textContent = `Album: ${album.title} (${album.year})`;
-        lyricsText.textContent = song.lyrics || "Lyrics unavailable";
-        lyricsModal.classList.add('show');
-      }
-     // Après la déclaration des variables existantes
-      const shuffleAllBtn = document.getElementById('shuffleAll');
-      const playAlbumBtn = document.getElementById('playAlbum');
-      
-      / Lecture aléatoire de toutes les chansons
-      shuffleAllBtn.addEventListener('click', () => {
-        // Rassembler toutes les chansons de tous les albums
-        const allSongs = [];
+                function setupShufflePlaylist() {
+        shuffledPlaylist = [];
         albums.forEach(album => {
           album.songs.forEach(song => {
-            allSongs.push({song, album}); // Correction ici
+            shuffledPlaylist.push({
+              song: song,
+              album: album
+            });
           });
         });
         
-        // Mélanger les chansons
-        const shuffledSongs = [...allSongs].sort(() => 0.5 - Math.random());
-        
-        // Jouer la première chanson mélangée
-        if (shuffledSongs.length > 0) {
-          playSong(shuffledSongs[0].song, shuffledSongs[0].album);
+        // Mélanger la playlist
+        shuffledPlaylist = shuffledPlaylist.sort(() => Math.random() - 0.5);
+      }
+
+      // NOUVELLE FONCTION POUR PLAY ALBUM
+      function setupAlbumPlaylist(album) {
+        currentAlbumPlaylist = {
+          album: album,
+          songs: [...album.songs],
+          currentIndex: 0
+        };
+      }
+
+      // GESTION DES BOUTONS
+      shuffleAllBtn.addEventListener('click', function() {
+        setupShufflePlaylist();
+        if (shuffledPlaylist.length > 0) {
+          const {song, album} = shuffledPlaylist[0];
+          playSong(song, album);
           
-          // Configurer la lecture en continu aléatoire
-          audioPlayer.onended = () => {
-            const currentIndex = shuffledSongs.findIndex(s => s.song === currentSong);
-            const nextIndex = (currentIndex + 1) % shuffledSongs.length;
-            playSong(shuffledSongs[nextIndex].song, shuffledSongs[nextIndex].album);
+          // Configurer la lecture en continu
+          audioPlayer.onended = function() {
+            const currentIndex = shuffledPlaylist.findIndex(item => item.song === currentSong);
+            if (currentIndex < shuffledPlaylist.length - 1) {
+              const nextSong = shuffledPlaylist[currentIndex + 1];
+              playSong(nextSong.song, nextSong.album);
+            }
           };
         }
       });
-      
-      // Lecture d'un album complet
-      playAlbumBtn.addEventListener('click', () => {
-        // Trouver l'album de la chanson actuelle ou le premier album
-        let albumToPlay = currentAlbum || albums[0];
+
+      playAlbumBtn.addEventListener('click', function() {
+        const albumToPlay = currentAlbum || albums[0];
+        setupAlbumPlaylist(albumToPlay);
         
-        // Jouer la première chanson de l'album
-        if (albumToPlay.songs.length > 0) {
-          playSong(albumToPlay.songs[0], albumToPlay);
+        if (currentAlbumPlaylist.songs.length > 0) {
+          playSong(currentAlbumPlaylist.songs[0], currentAlbumPlaylist.album);
           
-          // Configurer la lecture en continu de l'album
-          audioPlayer.onended = () => {
-            const currentIndex = albumToPlay.songs.findIndex(s => s === currentSong);
-            if (currentIndex < albumToPlay.songs.length - 1) {
-              playSong(albumToPlay.songs[currentIndex + 1], albumToPlay); // Correction ici
+          // Configurer la lecture en continu
+          audioPlayer.onended = function() {
+            const currentIndex = currentAlbumPlaylist.songs.indexOf(currentSong);
+            if (currentIndex < currentAlbumPlaylist.songs.length - 1) {
+              playSong(currentAlbumPlaylist.songs[currentIndex + 1], currentAlbumPlaylist.album);
             }
           };
         }
