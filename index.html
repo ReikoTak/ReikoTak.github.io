@@ -287,6 +287,34 @@
       background: var(--primary);
       border-radius: 10px;
     }
+    .controls {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.control-btn {
+  background: rgba(255,255,255,0.8);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.control-btn:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
     
     @media (max-width: 768px) {
       h1 {
@@ -310,6 +338,10 @@
     <header>
       <h1>Taylor Swift</h1>
       <div class="divider"></div>
+      <div class="controls">
+          <button id="shuffleAll" class="control-btn">🔀 Shuffle All</button>
+          <button id="playAlbum" class="control-btn">▶️ Play Album</button>
+        </div>
     </header>
     
     <main>
@@ -743,7 +775,54 @@ const albums = [
           albumsContainer.appendChild(albumCard);
         });
       }
+      // Après la déclaration des variables existantes
+const shuffleAllBtn = document.getElementById('shuffleAll');
+const playAlbumBtn = document.getElementById('playAlbum');
 
+// Lecture aléatoire de toutes les chansons
+shuffleAllBtn.addEventListener('click', () => {
+  // Rassembler toutes les chansons de tous les albums
+  const allSongs = [];
+  albums.forEach(album => {
+    album.songs.forEach(song => {
+      allSongs.push({...song, album});
+    });
+  });
+  
+  // Mélanger les chansons
+  const shuffledSongs = [...allSongs].sort(() => 0.5 - Math.random());
+  
+  // Jouer la première chanson mélangée
+  if (shuffledSongs.length > 0) {
+    playSong(shuffledSongs[0].song, shuffledSongs[0].album);
+    
+    // Configurer la lecture en continu aléatoire
+    audioPlayer.onended = () => {
+      const currentIndex = shuffledSongs.findIndex(s => s.song === currentSong);
+      const nextIndex = (currentIndex + 1) % shuffledSongs.length;
+      playSong(shuffledSongs[nextIndex].song, shuffledSongs[nextIndex].album);
+    };
+  }
+});
+
+// Lecture d'un album complet
+playAlbumBtn.addEventListener('click', () => {
+  // Trouver l'album de la chanson actuelle ou le premier album
+  let albumToPlay = currentAlbum || albums[0];
+  
+  // Jouer la première chanson de l'album
+  if (albumToPlay.songs.length > 0) {
+    playSong(albumToPlay.songs[0], albumToPlay);
+    
+    // Configurer la lecture en continu de l'album
+    audioPlayer.onended = () => {
+      const currentIndex = albumToPlay.songs.findIndex(s => s === currentSong);
+      if (currentIndex < albumToPlay.songs.length - 1) {
+        playSong(albumToPlay.songs[currentIndex + 1], albumToPlay);
+      }
+    };
+  }
+});
       // Fonction pour assombrir une couleur
       function darkenColor(color, percent) {
         // Implémentation simplifiée - utiliser une librairie de couleur en production
