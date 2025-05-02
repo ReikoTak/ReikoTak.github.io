@@ -684,150 +684,195 @@ const albums = [
     ]
   }
 ];
-   document.addEventListener('DOMContentLoaded', function() {
-      const albumsContainer = document.getElementById('albums-container');
-      const audioPlayer = document.getElementById('audioPlayer');
-      const nowPlayingTitle = document.getElementById('now-playing-title');
-      const nowPlayingAlbum = document.getElementById('now-playing-album');
-      const lyricsModal = document.getElementById('lyricsModal');
-      const lyricsTitle = document.getElementById('lyricsTitle');
-      const lyricsAlbum = document.getElementById('lyricsAlbum');
-      const lyricsText = document.getElementById('lyricsText');
-      const closeLyrics = document.getElementById('closeLyrics');
+   <script>
+const albums = [ /* votre liste d'albums existante */ ];
 
-      let currentSong = null;
-      let currentAlbum = null;
+document.addEventListener('DOMContentLoaded', function() {
+  // Sélections d'éléments DOM
+  const albumsContainer = document.getElementById('albums-container');
+  const audioPlayer = document.getElementById('audioPlayer');
+  const nowPlayingTitle = document.getElementById('now-playing-title');
+  const nowPlayingAlbum = document.getElementById('now-playing-album');
+  const lyricsModal = document.getElementById('lyricsModal');
+  const lyricsTitle = document.getElementById('lyricsTitle');
+  const lyricsAlbum = document.getElementById('lyricsAlbum');
+  const lyricsText = document.getElementById('lyricsText');
+  const closeLyrics = document.getElementById('closeLyrics');
+  const shuffleAllBtn = document.getElementById('shuffleAll');
+  const playAlbumBtn = document.getElementById('playAlbum');
 
-      // Fermer la modale
-      closeLyrics.addEventListener('click', () => {
-        lyricsModal.classList.remove('show');
+  // Variables d'état
+  let currentSong = null;
+  let currentAlbum = null;
+  let shuffledPlaylist = [];
+  let currentAlbumPlaylist = null;
+
+  // Fermer la modale
+  closeLyrics.addEventListener('click', () => {
+    lyricsModal.classList.remove('show');
+  });
+
+  // Fermer en cliquant à l'extérieur
+  lyricsModal.addEventListener('click', (e) => {
+    if (e.target === lyricsModal) {
+      lyricsModal.classList.remove('show');
+    }
+  });
+
+  // Fonction pour assombrir une couleur
+  function darkenColor(color, percent) {
+    return color; // Implémentation simplifiée
+  }
+
+  // Jouer une chanson
+  function playSong(song, album) {
+    currentSong = song;
+    currentAlbum = album;
+    
+    audioPlayer.src = song.src;
+    audioPlayer.play()
+      .then(() => {
+        nowPlayingTitle.textContent = song.title;
+        nowPlayingAlbum.textContent = `from ${album.title} (${album.year})`;
+      })
+      .catch(error => {
+        console.error("Audio playback error:", error);
+        nowPlayingTitle.textContent = "Audio playback error";
+        nowPlayingAlbum.textContent = song.title;
       });
+  }
 
-      // Fermer en cliquant à l'extérieur
-      lyricsModal.addEventListener('click', (e) => {
-        if (e.target === lyricsModal) {
-          lyricsModal.classList.remove('show');
+  // Afficher les paroles
+  function showLyrics(song, album) {
+    lyricsTitle.textContent = song.title;
+    lyricsAlbum.textContent = `Album: ${album.title} (${album.year})`;
+    lyricsText.textContent = song.lyrics || "Lyrics unavailable";
+    lyricsModal.classList.add('show');
+  }
+
+  // Configurer la playlist aléatoire
+  function setupShufflePlaylist() {
+    shuffledPlaylist = [];
+    albums.forEach(album => {
+      album.songs.forEach(song => {
+        shuffledPlaylist.push({
+          song: song,
+          album: album
+        });
+      });
+    });
+    shuffledPlaylist = shuffledPlaylist.sort(() => Math.random() - 0.5);
+  }
+
+  // Configurer la playlist d'album
+  function setupAlbumPlaylist(album) {
+    currentAlbumPlaylist = {
+      album: album,
+      songs: [...album.songs],
+      currentIndex: 0
+    };
+  }
+
+  // Bouton Shuffle All
+  shuffleAllBtn.addEventListener('click', function() {
+    setupShufflePlaylist();
+    if (shuffledPlaylist.length > 0) {
+      const {song, album} = shuffledPlaylist[0];
+      playSong(song, album);
+      
+      audioPlayer.onended = function() {
+        const currentIndex = shuffledPlaylist.findIndex(item => item.song === currentSong);
+        if (currentIndex < shuffledPlaylist.length - 1) {
+          const nextSong = shuffledPlaylist[currentIndex + 1];
+          playSong(nextSong.song, nextSong.album);
         }
-      });
+      };
+    }
+  });
 
-      // Rendre les albums
-      function renderAlbums() {
-        albumsContainer.innerHTML = '';
+  // Bouton Play Album
+  playAlbumBtn.addEventListener('click', function() {
+    const albumToPlay = currentAlbum || albums[0];
+    setupAlbumPlaylist(albumToPlay);
+    
+    if (currentAlbumPlaylist.songs.length > 0) {
+      playSong(currentAlbumPlaylist.songs[0], currentAlbumPlaylist.album);
+      
+      audioPlayer.onended = function() {
+        const currentIndex = currentAlbumPlaylist.songs.indexOf(currentSong);
+        if (currentIndex < currentAlbumPlaylist.songs.length - 1) {
+          playSong(currentAlbumPlaylist.songs[currentIndex + 1], currentAlbumPlaylist.album);
+        }
+      };
+    }
+  });
+
+  // Rendre les albums
+  function renderAlbums() {
+    albumsContainer.innerHTML = '';
+    
+    albums.forEach(album => {
+      const albumCard = document.createElement('div');
+      albumCard.className = 'album-card';
+      albumCard.style.border = `2px solid ${album.color}`;
+
+      const albumHeader = document.createElement('div');
+      albumHeader.className = 'album-header';
+      albumHeader.style.background = `linear-gradient(135deg, ${album.color}, ${darkenColor(album.color, 20)})`;
+      
+      const albumYear = document.createElement('div');
+      albumYear.className = 'album-year';
+      albumYear.textContent = album.year;
+      
+      const albumTitle = document.createElement('h2');
+      albumTitle.className = 'album-title';
+      albumTitle.textContent = album.title;
+      
+      albumHeader.appendChild(albumYear);
+      albumHeader.appendChild(albumTitle);
+      
+      const albumSongs = document.createElement('div');
+      albumSongs.className = 'album-songs';
+      
+      const songList = document.createElement('ul');
+      songList.className = 'song-list';
+      
+      album.songs.forEach((song, index) => {
+        const songItem = document.createElement('li');
+        songItem.className = 'song-item';
+        songItem.innerHTML = `
+          <span class="song-number">${index + 1}.</span>
+          <span class="song-title">${song.title}</span>
+          <button class="lyrics-btn">Lyrics</button>
+        `;
         
-        albums.forEach(album => {
-          const albumCard = document.createElement('div');
-          albumCard.className = 'album-card';
-          albumCard.style.border = `2px solid ${album.color}`;
-
-          const albumHeader = document.createElement('div');
-          albumHeader.className = 'album-header';
-          albumHeader.style.background = `linear-gradient(135deg, ${album.color}, ${darkenColor(album.color, 20)})`;
-          
-          const albumYear = document.createElement('div');
-          albumYear.className = 'album-year';
-          albumYear.textContent = album.year;
-          
-          const albumTitle = document.createElement('h2');
-          albumTitle.className = 'album-title';
-          albumTitle.textContent = album.title;
-          
-          albumHeader.appendChild(albumYear);
-          albumHeader.appendChild(albumTitle);
-          
-          const albumSongs = document.createElement('div');
-          albumSongs.className = 'album-songs';
-          
-          const songList = document.createElement('ul');
-          songList.className = 'song-list';
-          
-          album.songs.forEach((song, index) => {
-            const songItem = document.createElement('li');
-            songItem.className = 'song-item';
-            songItem.innerHTML = `
-              <span class="song-number">${index + 1}.</span>
-              <span class="song-title">${song.title}</span>
-              <button class="lyrics-btn">Lyrics</button>
-            `;
-            
-            songItem.addEventListener('click', () => {
-              // Mettre à jour la sélection active
-              document.querySelectorAll('.song-item.active').forEach(item => {
-                item.classList.remove('active');
-              });
-              songItem.classList.add('active');
-              
-              playSong(song, album);
-            });
-
-            // Bouton paroles
-            const lyricsBtn = songItem.querySelector('.lyrics-btn');
-            lyricsBtn.addEventListener('click', (e) => {
-              e.stopPropagation(); // Empêcher le déclenchement du click sur songItem
-              showLyrics(song, album);
-            });
-            
-                function setupShufflePlaylist() {
-        shuffledPlaylist = [];
-        albums.forEach(album => {
-          album.songs.forEach(song => {
-            shuffledPlaylist.push({
-              song: song,
-              album: album
-            });
+        songItem.addEventListener('click', () => {
+          document.querySelectorAll('.song-item.active').forEach(item => {
+            item.classList.remove('active');
           });
+          songItem.classList.add('active');
+          playSong(song, album);
+        });
+
+        const lyricsBtn = songItem.querySelector('.lyrics-btn');
+        lyricsBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          showLyrics(song, album);
         });
         
-        // Mélanger la playlist
-        shuffledPlaylist = shuffledPlaylist.sort(() => Math.random() - 0.5);
-      }
-
-      // NOUVELLE FONCTION POUR PLAY ALBUM
-      function setupAlbumPlaylist(album) {
-        currentAlbumPlaylist = {
-          album: album,
-          songs: [...album.songs],
-          currentIndex: 0
-        };
-      }
-
-      // GESTION DES BOUTONS
-      shuffleAllBtn.addEventListener('click', function() {
-        setupShufflePlaylist();
-        if (shuffledPlaylist.length > 0) {
-          const {song, album} = shuffledPlaylist[0];
-          playSong(song, album);
-          
-          // Configurer la lecture en continu
-          audioPlayer.onended = function() {
-            const currentIndex = shuffledPlaylist.findIndex(item => item.song === currentSong);
-            if (currentIndex < shuffledPlaylist.length - 1) {
-              const nextSong = shuffledPlaylist[currentIndex + 1];
-              playSong(nextSong.song, nextSong.album);
-            }
-          };
-        }
+        songList.appendChild(songItem);
       });
-
-      playAlbumBtn.addEventListener('click', function() {
-        const albumToPlay = currentAlbum || albums[0];
-        setupAlbumPlaylist(albumToPlay);
-        
-        if (currentAlbumPlaylist.songs.length > 0) {
-          playSong(currentAlbumPlaylist.songs[0], currentAlbumPlaylist.album);
-          
-          // Configurer la lecture en continu
-          audioPlayer.onended = function() {
-            const currentIndex = currentAlbumPlaylist.songs.indexOf(currentSong);
-            if (currentIndex < currentAlbumPlaylist.songs.length - 1) {
-              playSong(currentAlbumPlaylist.songs[currentIndex + 1], currentAlbumPlaylist.album);
-            }
-          };
-        }
-      });
-
-      // Initialisation
-      renderAlbums();
+      
+      albumSongs.appendChild(songList);
+      albumCard.appendChild(albumHeader);
+      albumCard.appendChild(albumSongs);
+      albumsContainer.appendChild(albumCard);
     });
-  </script>
+  }
+
+  // Initialisation
+  renderAlbums();
+});
+</script>
 </body>
 </html>
