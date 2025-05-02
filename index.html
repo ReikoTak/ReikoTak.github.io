@@ -775,7 +775,39 @@ const albums = [
           albumsContainer.appendChild(albumCard);
         });
       }
-      // Après la déclaration des variables existantes
+      
+      // Fonction pour assombrir une couleur
+      function darkenColor(color, percent) {
+        // Implémentation simplifiée - utiliser une librairie de couleur en production
+        return color;
+      }
+
+      // Jouer une chanson
+      function playSong(song, album) {
+        currentSong = song;
+        currentAlbum = album;
+        
+        audioPlayer.src = song.src;
+        audioPlayer.play()
+          .then(() => {
+            nowPlayingTitle.textContent = song.title;
+            nowPlayingAlbum.textContent = `from ${album.title} (${album.year})`;
+          })
+          .catch(error => {
+            console.error("Audio playback error:", error);
+            nowPlayingTitle.textContent = "Audio playback error";
+            nowPlayingAlbum.textContent = song.title;
+          });
+      }
+
+      // Afficher les paroles
+      function showLyrics(song, album) {
+        lyricsTitle.textContent = song.title;
+        lyricsAlbum.textContent = `Album: ${album.title} (${album.year})`;
+        lyricsText.textContent = song.lyrics || "Lyrics unavailable";
+        lyricsModal.classList.add('show');
+      }
+     // Après la déclaration des variables existantes
       const shuffleAllBtn = document.getElementById('shuffleAll');
       const playAlbumBtn = document.getElementById('playAlbum');
       
@@ -823,37 +855,6 @@ const albums = [
           };
         }
       });
-      // Fonction pour assombrir une couleur
-      function darkenColor(color, percent) {
-        // Implémentation simplifiée - utiliser une librairie de couleur en production
-        return color;
-      }
-
-      // Jouer une chanson
-      function playSong(song, album) {
-        currentSong = song;
-        currentAlbum = album;
-        
-        audioPlayer.src = song.src;
-        audioPlayer.play()
-          .then(() => {
-            nowPlayingTitle.textContent = song.title;
-            nowPlayingAlbum.textContent = `from ${album.title} (${album.year})`;
-          })
-          .catch(error => {
-            console.error("Audio playback error:", error);
-            nowPlayingTitle.textContent = "Audio playback error";
-            nowPlayingAlbum.textContent = song.title;
-          });
-      }
-
-      // Afficher les paroles
-      function showLyrics(song, album) {
-        lyricsTitle.textContent = song.title;
-        lyricsAlbum.textContent = `Album: ${album.title} (${album.year})`;
-        lyricsText.textContent = song.lyrics || "Lyrics unavailable";
-        lyricsModal.classList.add('show');
-      }
 
       // Initialisation
       renderAlbums();
