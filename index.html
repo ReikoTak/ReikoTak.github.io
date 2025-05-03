@@ -856,34 +856,7 @@ const albums = [
     const b = parseInt(hex.substring(4, 6), 16);
     return { r, g, b };
   }
-
-  function setThemeForAlbum(albumTitle) {
-    const theme = albumThemes[albumTitle] || {
-      primary: "#6c5ce7",
-      secondary: "#00cec9",
-      background: "linear-gradient(-45deg, #a8e6cf, #dcedc1, #ffd3b6, #ffaaa5)",
-      text: "#2d3436",
-      cardBg: "rgba(255, 255, 255, 0.8)"
-    };
-
-    // Désactiver temporairement l'animation du fond
-    document.body.style.animation = 'none';
-    
-    const primaryRgb = hexToRgb(theme.primary);
-    
-    document.documentElement.style.setProperty('--theme-primary', theme.primary);
-    document.documentElement.style.setProperty('--theme-secondary', theme.secondary);
-    document.documentElement.style.setProperty('--theme-background', theme.background);
-    document.documentElement.style.setProperty('--theme-text', theme.text);
-    document.documentElement.style.setProperty('--theme-card-bg', theme.cardBg);
-    document.documentElement.style.setProperty('--theme-primary-rgb', `${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}`);
-    
-    // Réactiver l'animation après un court délai
-    setTimeout(() => {
-      document.body.style.animation = 'gradientBG 15s ease infinite';
-    }, 10);
-  }
-document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function() {
   // Charger le dernier thème utilisé
   const lastAlbum = localStorage.getItem('lastAlbumTheme') || "Taylor Swift";
   setThemeForAlbum(lastAlbum);
@@ -925,21 +898,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Jouer une chanson
   function playSong(song, album) {
-  currentSong = song;
-  currentAlbum = album;
+    currentSong = song;
+    currentAlbum = album;
   
-  audioPlayer.src = song.src;
-  audioPlayer.play()
-    .then(() => {
-      nowPlayingTitle.textContent = song.title;
-      nowPlayingAlbum.textContent = `from ${album.title} (${album.year})`;
-      setThemeForAlbum(album.title); // <-- Ajout de cette ligne
-      localStorage.setItem('lastAlbumTheme', album.title);
-    })
-    .catch(error => {
-      console.error("Audio playback error:", error);
-    });
-}
+    try {
+      audioPlayer.src = song.src;
+      audioPlayer.play()
+        .then(() => {
+          nowPlayingTitle.textContent = song.title;
+          nowPlayingAlbum.textContent = `from ${album.title} (${album.year})`;
+          setThemeForAlbum(album.title);
+          localStorage.setItem('lastAlbumTheme', album.title);
+        })
+        .catch(error => {
+          console.error("Audio playback error:", error);
+          // Option: Passer à la chanson suivante en cas d'erreur
+        });
+    } catch (error) {
+      console.error("Error setting audio source:", error);
+    }
+  }
 
   // Afficher les paroles
   function showLyrics(song, album) {
@@ -1072,6 +1050,33 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initialisation
   renderAlbums();
 });
+  function setThemeForAlbum(albumTitle) {
+    const theme = albumThemes[albumTitle] || {
+      primary: "#6c5ce7",
+      secondary: "#00cec9",
+      background: "linear-gradient(-45deg, #a8e6cf, #dcedc1, #ffd3b6, #ffaaa5)",
+      text: "#2d3436",
+      cardBg: "rgba(255, 255, 255, 0.8)"
+    };
+
+    // Désactiver temporairement l'animation du fond
+    document.body.style.animation = 'none';
+    
+    const primaryRgb = hexToRgb(theme.primary);
+    
+    document.documentElement.style.setProperty('--theme-primary', theme.primary);
+    document.documentElement.style.setProperty('--theme-secondary', theme.secondary);
+    document.documentElement.style.setProperty('--theme-background', theme.background);
+    document.documentElement.style.setProperty('--theme-text', theme.text);
+    document.documentElement.style.setProperty('--theme-card-bg', theme.cardBg);
+    document.documentElement.style.setProperty('--theme-primary-rgb', `${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}`);
+    
+    // Réactiver l'animation après un court délai
+    setTimeout(() => {
+      document.body.style.animation = 'gradientBG 15s ease infinite';
+    }, 10);
+  }
+
 </script>
 </body>
 </html>
