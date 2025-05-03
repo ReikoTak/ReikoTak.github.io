@@ -330,6 +330,51 @@
         padding: 20px;
       }
     }
+    --theme-primary: var(--primary);
+    --theme-secondary: var(--secondary);
+    --theme-background: linear-gradient(-45deg, #a8e6cf, #dcedc1, #ffd3b6, #ffaaa5);
+    --theme-text: var(--dark);
+    --theme-card-bg: rgba(255, 255, 255, 0.8);
+    --theme-primary-rgb: 108, 92, 231;
+    
+    /* Transitions */
+    --transition-bg: 0.8s;
+    --transition-color: 0.5s;
+    --transition-all: 0.6s;
+  }
+  
+  /* Adaptez les sélecteurs existants */
+  body {
+    background: var(--theme-background);
+    color: var(--theme-text);
+    transition: 
+      background var(--transition-bg) ease,
+      color var(--transition-color) ease;
+  }
+  
+  .album-card {
+    background: var(--theme-card-bg);
+    transition: 
+      background-color var(--transition-all) ease,
+      border-color var(--transition-all) ease;
+  }
+  
+  .album-header {
+    background: linear-gradient(135deg, var(--theme-primary), var(--theme-secondary));
+    transition: background var(--transition-bg) ease;
+  }
+  
+  /* Ajoutez ces nouvelles règles */
+  .lyrics-line.active {
+    background: rgba(var(--theme-primary-rgb), 0.2);
+  }
+  
+  .player-container,
+  .lyrics-content {
+    transition: 
+      background-color var(--transition-all) ease,
+      box-shadow var(--transition-all) ease;
+  }
   </style>
 </head>
 
@@ -372,6 +417,85 @@
     </div>
   </div>
  <script>
+const albumThemes = {
+  "Taylor Swift": {
+    primary: "#4e7938",
+    secondary: "#8a9a5b",
+    background: "linear-gradient(-45deg, #d4edda, #c3e6cb, #a1d6b6, #83c5a3)",
+    text: "#2d3436",
+    cardBg: "rgba(255, 255, 255, 0.85)"
+  },
+  "Fearless": {
+    primary: "#ba9651",
+    secondary: "#d4b483",
+    background: "linear-gradient(-45deg, #fff3cd, #ffe69c, #ffda6a, #ffcd39)",
+    text: "#3a2d0b",
+    cardBg: "rgba(255, 253, 245, 0.9)"
+  },
+  "Speak Now": {
+    primary: "#8f3d7f",
+    secondary: "#b76ba3",
+    background: "linear-gradient(-45deg, #e2d4f0, #d6bce8, #c9a3e0, #bc8ad8)",
+    text: "#2d0b25",
+    cardBg: "rgba(252, 245, 255, 0.9)"
+  },
+  "Red": {
+    primary: "#981007",
+    secondary: "#d62d20",
+    background: "linear-gradient(-45deg, #ffcdd2, #ff8a80, #ff5252, #ff1744)",
+    text: "#330e0b",
+    cardBg: "rgba(255, 245, 245, 0.9)"
+  },
+  "1989": {
+    primary: "#779bb7",
+    secondary: "#a8c6e0",
+    background: "linear-gradient(-45deg, #e3f2fd, #bbdefb, #90caf9, #64b5f6)",
+    text: "#0d2b44",
+    cardBg: "rgba(240, 248, 255, 0.9)"
+  },
+  "Reputation": {
+    primary: "#0d0d0d",
+    secondary: "#2d2d2d",
+    background: "linear-gradient(-45deg, #1a1a1a, #2d2d2d, #1a1a1a, #000000)",
+    text: "#e0e0e0",
+    cardBg: "rgba(30, 30, 30, 0.85)"
+  },
+  "Lover": {
+    primary: "#f6acc9",
+    secondary: "#ffd1dc",
+    background: "linear-gradient(-45deg, #ffebee, #ffcdd2, #f8bbd0, #f6acc9)",
+    text: "#4a1c2e",
+    cardBg: "rgba(255, 240, 245, 0.9)"
+  },
+  "folklore": {
+    primary: "#989898",
+    secondary: "#b5b5b5",
+    background: "linear-gradient(-45deg, #e0e0e0, #d0d0d0, #b0b0b0, #989898)",
+    text: "#1a1a1a",
+    cardBg: "rgba(245, 245, 245, 0.9)"
+  },
+  "evermore": {
+    primary: "#6c321f",
+    secondary: "#8b4513",
+    background: "linear-gradient(-45deg, #efebe9, #d7ccc8, #bcaaa4, #8b4513)",
+    text: "#2e1100",
+    cardBg: "rgba(245, 237, 230, 0.9)"
+  },
+  "Midnights": {
+    primary: "#5b6486",
+    secondary: "#7d87aa",
+    background: "linear-gradient(-45deg, #2b2d42, #3a3d5d, #4a4d7d, #5b6486)",
+    text: "#e0e0e0",
+    cardBg: "rgba(50, 52, 70, 0.85)"
+  },
+  "The Tortured Poets Department": {
+    primary: "#7a7975",
+    secondary: "#9e9d99",
+    background: "linear-gradient(-45deg, #e0e0e0, #b0b0b0, #888888, #7a7975)",
+    text: "#1a1a1a",
+    cardBg: "rgba(245, 245, 245, 0.9)"
+  }
+};
 const albums = [
   {
     title: "Taylor Swift",
@@ -684,8 +808,36 @@ const albums = [
     ]
   }
 ];
+function hexToRgb(hex) {
+  hex = hex.replace('#', '');
+  const r = parseInt(hex.substring(0, 2), 16);
+  const g = parseInt(hex.substring(2, 4), 16);
+  const b = parseInt(hex.substring(4, 6), 16);
+  return { r, g, b };
+}
 
+function setThemeForAlbum(albumTitle) {
+  const theme = albumThemes[albumTitle] || {
+    primary: "#6c5ce7",
+    secondary: "#00cec9",
+    background: "linear-gradient(-45deg, #a8e6cf, #dcedc1, #ffd3b6, #ffaaa5)",
+    text: "#2d3436",
+    cardBg: "rgba(255, 255, 255, 0.8)"
+  };
+
+  const primaryRgb = hexToRgb(theme.primary);
+  
+  document.documentElement.style.setProperty('--theme-primary', theme.primary);
+  document.documentElement.style.setProperty('--theme-secondary', theme.secondary);
+  document.documentElement.style.setProperty('--theme-background', theme.background);
+  document.documentElement.style.setProperty('--theme-text', theme.text);
+  document.documentElement.style.setProperty('--theme-card-bg', theme.cardBg);
+  document.documentElement.style.setProperty('--theme-primary-rgb', `${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}`);
+}
 document.addEventListener('DOMContentLoaded', function() {
+  // Charger le dernier thème utilisé
+  const lastAlbum = localStorage.getItem('lastAlbumTheme') || "Taylor Swift";
+  setThemeForAlbum(lastAlbum);
   // Sélections d'éléments DOM
   const albumsContainer = document.getElementById('albums-container');
   const audioPlayer = document.getElementById('audioPlayer');
@@ -724,21 +876,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Jouer une chanson
   function playSong(song, album) {
-    currentSong = song;
-    currentAlbum = album;
-    
-    audioPlayer.src = song.src;
-    audioPlayer.play()
-      .then(() => {
-        nowPlayingTitle.textContent = song.title;
-        nowPlayingAlbum.textContent = `from ${album.title} (${album.year})`;
-      })
-      .catch(error => {
-        console.error("Audio playback error:", error);
-        nowPlayingTitle.textContent = "Audio playback error";
-        nowPlayingAlbum.textContent = song.title;
-      });
-  }
+  currentSong = song;
+  currentAlbum = album;
+  
+  audioPlayer.src = song.src;
+  audioPlayer.play()
+    .then(() => {
+      nowPlayingTitle.textContent = song.title;
+      nowPlayingAlbum.textContent = `from ${album.title} (${album.year})`;
+      setThemeForAlbum(album.title); // <-- Ajout de cette ligne
+      localStorage.setItem('lastAlbumTheme', album.title);
+    })
+    .catch(error => {
+      console.error("Audio playback error:", error);
+    });
+}
 
   // Afficher les paroles
   function showLyrics(song, album) {
