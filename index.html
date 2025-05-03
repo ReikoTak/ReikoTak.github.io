@@ -3,16 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Taylor Swift</title>
+  <title>Taylor Swift - Discographie</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   <style>
     :root {
+      /* Couleurs de base */
       --primary: #6c5ce7;
       --secondary: #00cec9;
       --dark: #2d3436;
       --light: #dfe6e9;
+      
+      /* Variables pour les thèmes dynamiques */
+      --theme-primary: var(--primary);
+      --theme-secondary: var(--secondary);
+      --theme-background: linear-gradient(-45deg, #a8e6cf, #dcedc1, #ffd3b6, #ffaaa5);
+      --theme-text: var(--dark);
+      --theme-card-bg: rgba(255, 255, 255, 0.8);
+      --theme-primary-rgb: 108, 92, 231;
+      
+      /* Transitions */
+      --transition-bg: 0.8s;
+      --transition-color: 0.5s;
+      --transition-all: 0.6s;
     }
     
     * {
@@ -23,13 +37,16 @@
     
     body {
       font-family: 'Montserrat', sans-serif;
-      background: linear-gradient(-45deg, #a8e6cf, #dcedc1, #ffd3b6, #ffaaa5);
+      background: var(--theme-background);
       background-size: 400% 400%;
       animation: gradientBG 15s ease infinite;
       min-height: 100vh;
       padding: 40px 20px;
-      color: var(--dark);
+      color: var(--theme-text);
       line-height: 1.6;
+      transition: 
+        background var(--transition-bg) ease,
+        color var(--transition-color) ease;
     }
 
     @keyframes gradientBG {
@@ -52,14 +69,15 @@
     h1 {
       font-family: 'Playfair Display', serif;
       font-size: 3.5rem;
-      color: var(--primary);
+      color: var(--theme-primary);
       margin-bottom: 10px;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+      transition: color var(--transition-color) ease;
     }
     
     .subtitle {
       font-size: 1.2rem;
-      color: var(--dark);
+      color: var(--theme-text);
       opacity: 0.8;
       margin-bottom: 20px;
     }
@@ -67,9 +85,10 @@
     .divider {
       height: 4px;
       width: 100px;
-      background: linear-gradient(to right, var(--primary), var(--secondary));
+      background: linear-gradient(to right, var(--theme-primary), var(--theme-secondary));
       margin: 0 auto 30px;
       border-radius: 2px;
+      transition: background var(--transition-bg) ease;
     }
     
     .albums-grid {
@@ -80,7 +99,7 @@
     }
     
     .album-card {
-      background: rgba(255,255,255,0.8);
+      background: var(--theme-card-bg);
       backdrop-filter: blur(10px);
       border-radius: 15px;
       overflow: hidden;
@@ -94,10 +113,11 @@
     }
     
     .album-header {
-      background: linear-gradient(135deg, var(--secondary), var(--primary));
+      background: linear-gradient(135deg, var(--theme-primary), var(--theme-secondary));
       color: white;
       padding: 20px;
       position: relative;
+      transition: background var(--transition-bg) ease;
     }
     
     .album-year {
@@ -141,39 +161,39 @@
     }
     
     .song-item:hover {
-      background: rgba(108, 92, 231, 0.1);
+      background: rgba(var(--theme-primary-rgb), 0.1);
     }
     
     .song-item.active {
-      background: rgba(108, 92, 231, 0.2);
+      background: rgba(var(--theme-primary-rgb), 0.2);
       font-weight: 600;
     }
     
     .song-number {
-      color: var(--primary);
+      color: var(--theme-primary);
       font-weight: 600;
       margin-right: 15px;
       min-width: 25px;
     }
     
-    .lyrics-btn {
+    .lyrics-btn, .add-to-playlist-btn {
       background: none;
       border: none;
-      color: var(--secondary);
+      color: var(--theme-secondary);
       cursor: pointer;
       font-size: 0.8rem;
       padding: 5px 10px;
       border-radius: 15px;
       transition: all 0.2s ease;
-      margin-left: auto;
+      margin-left: 10px;
     }
     
-    .lyrics-btn:hover {
+    .lyrics-btn:hover, .add-to-playlist-btn:hover {
       background: rgba(0, 206, 201, 0.1);
     }
     
     .player-container {
-      background: rgba(255,255,255,0.8);
+      background: var(--theme-card-bg);
       backdrop-filter: blur(10px);
       border-radius: 15px;
       padding: 25px;
@@ -181,6 +201,9 @@
       margin-top: 30px;
       position: sticky;
       bottom: 20px;
+      transition: 
+        background-color var(--transition-all) ease,
+        box-shadow var(--transition-all) ease;
     }
     
     .now-playing {
@@ -196,7 +219,7 @@
     .now-playing-title {
       font-weight: 700;
       font-size: 1.2rem;
-      color: var(--primary);
+      color: var(--theme-primary);
     }
     
     .now-playing-album {
@@ -232,7 +255,7 @@
     }
     
     .lyrics-content {
-      background: rgba(255,255,255,0.9);
+      background: var(--theme-card-bg);
       backdrop-filter: blur(10px);
       border-radius: 15px;
       width: 90%;
@@ -241,18 +264,21 @@
       padding: 30px;
       overflow-y: auto;
       position: relative;
+      transition: 
+        background-color var(--transition-all) ease,
+        box-shadow var(--transition-all) ease;
     }
     
     .lyrics-title {
       font-family: 'Playfair Display', serif;
       font-size: 1.8rem;
-      color: var(--primary);
+      color: var(--theme-primary);
       margin-bottom: 10px;
     }
     
     .lyrics-album {
       font-size: 1rem;
-      color: var(--dark);
+      color: var(--theme-text);
       opacity: 0.8;
       margin-bottom: 20px;
     }
@@ -270,51 +296,93 @@
       border: none;
       font-size: 1.5rem;
       cursor: pointer;
-      color: var(--dark);
+      color: var(--theme-text);
+    }
+    
+    /* Playlist */
+    .playlist-container {
+      background: var(--theme-card-bg);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 20px;
+      margin-top: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: 
+        background-color var(--transition-all) ease,
+        box-shadow var(--transition-all) ease;
+    }
+    
+    .playlist-title {
+      font-family: 'Playfair Display', serif;
+      color: var(--theme-primary);
+      margin-bottom: 15px;
+    }
+    
+    .playlist-items {
+      list-style: none;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    
+    .playlist-item {
+      padding: 10px;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .remove-from-playlist {
+      color: #ff6b6b;
+      cursor: pointer;
+    }
+    
+    /* Contrôles */
+    .controls {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+    
+    .control-btn {
+      background: var(--theme-card-bg);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .control-btn:hover {
+      background: var(--theme-primary);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
     }
     
     /* Scrollbar styling */
-    .album-songs::-webkit-scrollbar {
+    .album-songs::-webkit-scrollbar,
+    .playlist-items::-webkit-scrollbar {
       width: 8px;
     }
     
-    .album-songs::-webkit-scrollbar-track {
+    .album-songs::-webkit-scrollbar-track,
+    .playlist-items::-webkit-scrollbar-track {
       background: rgba(0,0,0,0.05);
       border-radius: 10px;
     }
     
-    .album-songs::-webkit-scrollbar-thumb {
-      background: var(--primary);
+    .album-songs::-webkit-scrollbar-thumb,
+    .playlist-items::-webkit-scrollbar-thumb {
+      background: var(--theme-primary);
       border-radius: 10px;
     }
-    .controls {
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-  margin-bottom: 30px;
-}
-
-.control-btn {
-  background: rgba(255,255,255,0.8);
-  border: none;
-  padding: 10px 20px;
-  border-radius: 30px;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.control-btn:hover {
-  background: var(--primary);
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-}
     
     @media (max-width: 768px) {
       h1 {
@@ -324,57 +392,17 @@
       .albums-grid {
         grid-template-columns: 1fr;
       }
-
+      
       .lyrics-content {
         width: 95%;
         padding: 20px;
       }
+      
+      .controls {
+        flex-direction: column;
+        align-items: center;
+      }
     }
-    --theme-primary: var(--primary);
-    --theme-secondary: var(--secondary);
-    --theme-background: linear-gradient(-45deg, #a8e6cf, #dcedc1, #ffd3b6, #ffaaa5);
-    --theme-text: var(--dark);
-    --theme-card-bg: rgba(255, 255, 255, 0.8);
-    --theme-primary-rgb: 108, 92, 231;
-    
-    /* Transitions */
-    --transition-bg: 0.8s;
-    --transition-color: 0.5s;
-    --transition-all: 0.6s;
-  }
-  
-  /* Adaptez les sélecteurs existants */
-  body {
-    background: var(--theme-background);
-    color: var(--theme-text);
-    transition: 
-      background var(--transition-bg) ease,
-      color var(--transition-color) ease;
-  }
-  
-  .album-card {
-    background: var(--theme-card-bg);
-    transition: 
-      background-color var(--transition-all) ease,
-      border-color var(--transition-all) ease;
-  }
-  
-  .album-header {
-    background: linear-gradient(135deg, var(--theme-primary), var(--theme-secondary));
-    transition: background var(--transition-bg) ease;
-  }
-  
-  /* Ajoutez ces nouvelles règles */
-  .lyrics-line.active {
-    background: rgba(var(--theme-primary-rgb), 0.2);
-  }
-  
-  .player-container,
-  .lyrics-content {
-    transition: 
-      background-color var(--transition-all) ease,
-      box-shadow var(--transition-all) ease;
-  }
   </style>
 </head>
 
@@ -384,13 +412,19 @@
       <h1>Taylor Swift</h1>
       <div class="divider"></div>
       <div class="controls">
-          <button id="shuffleAll" class="control-btn">🔀 Shuffle All</button>
-          <button id="playAlbum" class="control-btn">▶️ Play Album</button>
-        </div>
+        <button id="shuffleAll" class="control-btn">🔀 Shuffle All</button>
+        <button id="playAlbum" class="control-btn">▶️ Play Album</button>
+        <button id="playPlaylist" class="control-btn">🎵 Play Playlist</button>
+      </div>
     </header>
     
     <main>
       <div class="albums-grid" id="albums-container"></div>
+      
+      <div class="playlist-container">
+        <h3 class="playlist-title">Your Playlist (<span id="playlist-count">0</span> songs)</h3>
+        <ul class="playlist-items" id="playlist-items"></ul>
+      </div>
       
       <div class="player-container">
         <div class="now-playing">
@@ -413,6 +447,12 @@
       <button class="close-lyrics" id="closeLyrics">&times;</button>
       <h2 class="lyrics-title" id="lyricsTitle"></h2>
       <div class="lyrics-album" id="lyricsAlbum"></div>
+      <div class="lyrics-player">
+        <audio id="lyricsAudio" controls></audio>
+        <div class="lyrics-progress">
+          <div class="lyrics-progress-bar"></div>
+        </div>
+      </div>
       <div class="lyrics-text" id="lyricsText"></div>
     </div>
   </div>
@@ -523,7 +563,7 @@ const albums = [
     year: "2008",
     color: "#ba9651", 
     songs: [
-      { title: "Fearless", src: "Fearless.mp3", lyrics: "coming soon..." },
+      { title: "Fearless", src: "Fearless.mp3", lyrics: "" },
       { title: "Fifteen", src: "Fifteen.mp3", lyrics: "coming soon..." },
       { title: "Love Story", src: "Love Story.mp3", lyrics: "coming soon..." },
       { title: "Hey Stephen", src: "Hey Stephen.mp3", lyrics: "coming soon..." },
@@ -808,32 +848,41 @@ const albums = [
     ]
   }
 ];
-function hexToRgb(hex) {
-  hex = hex.replace('#', '');
-  const r = parseInt(hex.substring(0, 2), 16);
-  const g = parseInt(hex.substring(2, 4), 16);
-  const b = parseInt(hex.substring(4, 6), 16);
-  return { r, g, b };
-}
+  // Fonctions utilitaires
+  function hexToRgb(hex) {
+    hex = hex.replace('#', '');
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+    return { r, g, b };
+  }
 
-function setThemeForAlbum(albumTitle) {
-  const theme = albumThemes[albumTitle] || {
-    primary: "#6c5ce7",
-    secondary: "#00cec9",
-    background: "linear-gradient(-45deg, #a8e6cf, #dcedc1, #ffd3b6, #ffaaa5)",
-    text: "#2d3436",
-    cardBg: "rgba(255, 255, 255, 0.8)"
-  };
+  function setThemeForAlbum(albumTitle) {
+    const theme = albumThemes[albumTitle] || {
+      primary: "#6c5ce7",
+      secondary: "#00cec9",
+      background: "linear-gradient(-45deg, #a8e6cf, #dcedc1, #ffd3b6, #ffaaa5)",
+      text: "#2d3436",
+      cardBg: "rgba(255, 255, 255, 0.8)"
+    };
 
-  const primaryRgb = hexToRgb(theme.primary);
-  
-  document.documentElement.style.setProperty('--theme-primary', theme.primary);
-  document.documentElement.style.setProperty('--theme-secondary', theme.secondary);
-  document.documentElement.style.setProperty('--theme-background', theme.background);
-  document.documentElement.style.setProperty('--theme-text', theme.text);
-  document.documentElement.style.setProperty('--theme-card-bg', theme.cardBg);
-  document.documentElement.style.setProperty('--theme-primary-rgb', `${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}`);
-}
+    // Désactiver temporairement l'animation du fond
+    document.body.style.animation = 'none';
+    
+    const primaryRgb = hexToRgb(theme.primary);
+    
+    document.documentElement.style.setProperty('--theme-primary', theme.primary);
+    document.documentElement.style.setProperty('--theme-secondary', theme.secondary);
+    document.documentElement.style.setProperty('--theme-background', theme.background);
+    document.documentElement.style.setProperty('--theme-text', theme.text);
+    document.documentElement.style.setProperty('--theme-card-bg', theme.cardBg);
+    document.documentElement.style.setProperty('--theme-primary-rgb', `${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}`);
+    
+    // Réactiver l'animation après un court délai
+    setTimeout(() => {
+      document.body.style.animation = 'gradientBG 15s ease infinite';
+    }, 10);
+  }
 document.addEventListener('DOMContentLoaded', function() {
   // Charger le dernier thème utilisé
   const lastAlbum = localStorage.getItem('lastAlbumTheme') || "Taylor Swift";
