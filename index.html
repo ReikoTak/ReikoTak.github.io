@@ -330,6 +330,50 @@
         padding: 20px;
       }
     }
+.search-container {
+  margin: 20px auto;
+  max-width: 500px;
+  position: relative;
+}
+
+.search-section {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+#searchInput {
+  width: 100%;
+  padding: 12px 20px;
+  border: 2px solid var(--primary);
+  border-radius: 30px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  outline: none;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+}
+
+.search-results {
+  position: absolute;
+  width: 100%;
+  max-height: 300px;
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  display: none;
+}
+
+.search-results div {
+  padding: 10px 15px;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.search-results div:hover {
+  background: rgba(108, 92, 231, 0.1);
+}
   </style>
 </head>
 
@@ -342,6 +386,10 @@
           <button id="shuffleAll" class="control-btn">🔀 Shuffle All</button>
           <button id="playAlbum" class="control-btn">▶️ Play Album</button>
         </div>
+        <div class="search-container">
+          <input type="text" id="searchInput" placeholder="Rechercher une chanson, un album...">
+          <div id="searchResults" class="search-results"></div>
+       </div>
     </header>
     
     <main>
@@ -804,6 +852,7 @@ document.addEventListener('DOMContentLoaded', function() {
       };
     }
   });
+  
 
   // Rendre les albums
   function renderAlbums() {
@@ -870,6 +919,53 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Initialisation
   renderAlbums();
+});
+
+const searchInput = document.getElementById('searchInput');
+const searchResults = document.getElementById('searchResults');
+
+searchInput.addEventListener('input', () => {
+  const query = searchInput.value.toLowerCase();
+  searchResults.innerHTML = '';
+
+  if (query.length > 0) {
+    const results = [];
+    albums.forEach(album => {
+      album.songs.forEach(song => {
+        if (
+          song.title.toLowerCase().includes(query) || 
+          album.title.toLowerCase().includes(query) ||
+          (song.lyrics && song.lyrics.toLowerCase().includes(query))
+        ) {
+          results.push({ song, album });
+        }
+      });
+    });
+
+    if (results.length > 0) {
+      results.forEach(result => {
+        const resultItem = document.createElement('div');
+        resultItem.textContent = `${result.song.title} (${result.album.title})`;
+        resultItem.addEventListener('click', () => {
+          playSong(result.song, result.album);
+          searchResults.style.display = 'none';
+        });
+        searchResults.appendChild(resultItem);
+      });
+      searchResults.style.display = 'block';
+    } else {
+      searchResults.style.display = 'none';
+    }
+  } else {
+    searchResults.style.display = 'none';
+  }
+});
+
+// Fermer les résultats si on clique ailleurs
+document.addEventListener('click', (e) => {
+  if (e.target !== searchInput) {
+    searchResults.style.display = 'none';
+  }
 });
 </script>
 </body>
