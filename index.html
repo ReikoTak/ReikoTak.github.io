@@ -9,24 +9,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* Couleurs de base */
       --primary: #6c5ce7;
       --secondary: #00cec9;
       --dark: #2d3436;
       --light: #dfe6e9;
-      
-      /* Variables pour les thèmes dynamiques */
-      --theme-primary: var(--primary);
-      --theme-secondary: var(--secondary);
-      --theme-background: linear-gradient(-45deg, #a8e6cf, #dcedc1, #ffd3b6, #ffaaa5);
-      --theme-text: var(--dark);
-      --theme-card-bg: rgba(255, 255, 255, 0.8);
-      --theme-primary-rgb: 108, 92, 231;
-      
-      /* Transitions */
-      --transition-bg: 0.8s;
-      --transition-color: 0.5s;
-      --transition-all: 0.6s;
     }
     
     * {
@@ -37,16 +23,13 @@
     
     body {
       font-family: 'Montserrat', sans-serif;
-      background: var(--theme-background);
+      background: linear-gradient(-45deg, #a8e6cf, #dcedc1, #ffd3b6, #ffaaa5);
       background-size: 400% 400%;
       animation: gradientBG 15s ease infinite;
       min-height: 100vh;
       padding: 40px 20px;
-      color: var(--theme-text);
+      color: var(--dark);
       line-height: 1.6;
-      transition: 
-        background var(--transition-bg) ease,
-        color var(--transition-color) ease;
     }
 
     @keyframes gradientBG {
@@ -69,15 +52,14 @@
     h1 {
       font-family: 'Playfair Display', serif;
       font-size: 3.5rem;
-      color: var(--theme-primary);
+      color: var(--primary);
       margin-bottom: 10px;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-      transition: color var(--transition-color) ease;
     }
     
     .subtitle {
       font-size: 1.2rem;
-      color: var(--theme-text);
+      color: var(--dark);
       opacity: 0.8;
       margin-bottom: 20px;
     }
@@ -85,10 +67,9 @@
     .divider {
       height: 4px;
       width: 100px;
-      background: linear-gradient(to right, var(--theme-primary), var(--theme-secondary));
+      background: linear-gradient(to right, var(--primary), var(--secondary));
       margin: 0 auto 30px;
       border-radius: 2px;
-      transition: background var(--transition-bg) ease;
     }
     
     .albums-grid {
@@ -99,7 +80,7 @@
     }
     
     .album-card {
-      background: var(--theme-card-bg);
+      background: rgba(255,255,255,0.8);
       backdrop-filter: blur(10px);
       border-radius: 15px;
       overflow: hidden;
@@ -113,11 +94,10 @@
     }
     
     .album-header {
-      background: linear-gradient(135deg, var(--theme-primary), var(--theme-secondary));
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
       color: white;
       padding: 20px;
       position: relative;
-      transition: background var(--transition-bg) ease;
     }
     
     .album-year {
@@ -161,39 +141,39 @@
     }
     
     .song-item:hover {
-      background: rgba(var(--theme-primary-rgb), 0.1);
+      background: rgba(108, 92, 231, 0.1);
     }
     
     .song-item.active {
-      background: rgba(var(--theme-primary-rgb), 0.2);
+      background: rgba(108, 92, 231, 0.2);
       font-weight: 600;
     }
     
     .song-number {
-      color: var(--theme-primary);
+      color: var(--primary);
       font-weight: 600;
       margin-right: 15px;
       min-width: 25px;
     }
     
-    .lyrics-btn, .add-to-playlist-btn {
+    .lyrics-btn {
       background: none;
       border: none;
-      color: var(--theme-secondary);
+      color: var(--secondary);
       cursor: pointer;
       font-size: 0.8rem;
       padding: 5px 10px;
       border-radius: 15px;
       transition: all 0.2s ease;
-      margin-left: 10px;
+      margin-left: auto;
     }
     
-    .lyrics-btn:hover, .add-to-playlist-btn:hover {
+    .lyrics-btn:hover {
       background: rgba(0, 206, 201, 0.1);
     }
     
     .player-container {
-      background: var(--theme-card-bg);
+      background: rgba(255,255,255,0.8);
       backdrop-filter: blur(10px);
       border-radius: 15px;
       padding: 25px;
@@ -201,9 +181,6 @@
       margin-top: 30px;
       position: sticky;
       bottom: 20px;
-      transition: 
-        background-color var(--transition-all) ease,
-        box-shadow var(--transition-all) ease;
     }
     
     .now-playing {
@@ -219,7 +196,7 @@
     .now-playing-title {
       font-weight: 700;
       font-size: 1.2rem;
-      color: var(--theme-primary);
+      color: var(--primary);
     }
     
     .now-playing-album {
@@ -255,7 +232,7 @@
     }
     
     .lyrics-content {
-      background: var(--theme-card-bg);
+      background: rgba(255,255,255,0.9);
       backdrop-filter: blur(10px);
       border-radius: 15px;
       width: 90%;
@@ -264,21 +241,18 @@
       padding: 30px;
       overflow-y: auto;
       position: relative;
-      transition: 
-        background-color var(--transition-all) ease,
-        box-shadow var(--transition-all) ease;
     }
     
     .lyrics-title {
       font-family: 'Playfair Display', serif;
       font-size: 1.8rem;
-      color: var(--theme-primary);
+      color: var(--primary);
       margin-bottom: 10px;
     }
     
     .lyrics-album {
       font-size: 1rem;
-      color: var(--theme-text);
+      color: var(--dark);
       opacity: 0.8;
       margin-bottom: 20px;
     }
@@ -296,93 +270,51 @@
       border: none;
       font-size: 1.5rem;
       cursor: pointer;
-      color: var(--theme-text);
-    }
-    
-    /* Playlist */
-    .playlist-container {
-      background: var(--theme-card-bg);
-      backdrop-filter: blur(10px);
-      border-radius: 15px;
-      padding: 20px;
-      margin-top: 20px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      transition: 
-        background-color var(--transition-all) ease,
-        box-shadow var(--transition-all) ease;
-    }
-    
-    .playlist-title {
-      font-family: 'Playfair Display', serif;
-      color: var(--theme-primary);
-      margin-bottom: 15px;
-    }
-    
-    .playlist-items {
-      list-style: none;
-      max-height: 200px;
-      overflow-y: auto;
-    }
-    
-    .playlist-item {
-      padding: 10px;
-      border-bottom: 1px solid rgba(0,0,0,0.05);
-      display: flex;
-      justify-content: space-between;
-    }
-    
-    .remove-from-playlist {
-      color: #ff6b6b;
-      cursor: pointer;
-    }
-    
-    /* Contrôles */
-    .controls {
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-      margin-bottom: 30px;
-    }
-    
-    .control-btn {
-      background: var(--theme-card-bg);
-      border: none;
-      padding: 10px 20px;
-      border-radius: 30px;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    
-    .control-btn:hover {
-      background: var(--theme-primary);
-      color: white;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+      color: var(--dark);
     }
     
     /* Scrollbar styling */
-    .album-songs::-webkit-scrollbar,
-    .playlist-items::-webkit-scrollbar {
+    .album-songs::-webkit-scrollbar {
       width: 8px;
     }
     
-    .album-songs::-webkit-scrollbar-track,
-    .playlist-items::-webkit-scrollbar-track {
+    .album-songs::-webkit-scrollbar-track {
       background: rgba(0,0,0,0.05);
       border-radius: 10px;
     }
     
-    .album-songs::-webkit-scrollbar-thumb,
-    .playlist-items::-webkit-scrollbar-thumb {
-      background: var(--theme-primary);
+    .album-songs::-webkit-scrollbar-thumb {
+      background: var(--primary);
       border-radius: 10px;
     }
+    .controls {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.control-btn {
+  background: rgba(255,255,255,0.8);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.control-btn:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
     
     @media (max-width: 768px) {
       h1 {
@@ -392,15 +324,10 @@
       .albums-grid {
         grid-template-columns: 1fr;
       }
-      
+
       .lyrics-content {
         width: 95%;
         padding: 20px;
-      }
-      
-      .controls {
-        flex-direction: column;
-        align-items: center;
       }
     }
   </style>
@@ -412,19 +339,13 @@
       <h1>Taylor Swift</h1>
       <div class="divider"></div>
       <div class="controls">
-        <button id="shuffleAll" class="control-btn">🔀 Shuffle All</button>
-        <button id="playAlbum" class="control-btn">▶️ Play Album</button>
-        <button id="playPlaylist" class="control-btn">🎵 Play Playlist</button>
-      </div>
+          <button id="shuffleAll" class="control-btn">🔀 Shuffle All</button>
+          <button id="playAlbum" class="control-btn">▶️ Play Album</button>
+        </div>
     </header>
     
     <main>
       <div class="albums-grid" id="albums-container"></div>
-      
-      <div class="playlist-container">
-        <h3 class="playlist-title">Your Playlist (<span id="playlist-count">0</span> songs)</h3>
-        <ul class="playlist-items" id="playlist-items"></ul>
-      </div>
       
       <div class="player-container">
         <div class="now-playing">
@@ -447,95 +368,10 @@
       <button class="close-lyrics" id="closeLyrics">&times;</button>
       <h2 class="lyrics-title" id="lyricsTitle"></h2>
       <div class="lyrics-album" id="lyricsAlbum"></div>
-      <div class="lyrics-player">
-        <audio id="lyricsAudio" controls></audio>
-        <div class="lyrics-progress">
-          <div class="lyrics-progress-bar"></div>
-        </div>
-      </div>
       <div class="lyrics-text" id="lyricsText"></div>
     </div>
   </div>
  <script>
-const albumThemes = {
-  "Taylor Swift": {
-    primary: "#4e7938",
-    secondary: "#8a9a5b",
-    background: "linear-gradient(-45deg, #d4edda, #c3e6cb, #a1d6b6, #83c5a3)",
-    text: "#2d3436",
-    cardBg: "rgba(255, 255, 255, 0.85)"
-  },
-  "Fearless": {
-    primary: "#ba9651",
-    secondary: "#d4b483",
-    background: "linear-gradient(-45deg, #fff3cd, #ffe69c, #ffda6a, #ffcd39)",
-    text: "#3a2d0b",
-    cardBg: "rgba(255, 253, 245, 0.9)"
-  },
-  "Speak Now": {
-    primary: "#8f3d7f",
-    secondary: "#b76ba3",
-    background: "linear-gradient(-45deg, #e2d4f0, #d6bce8, #c9a3e0, #bc8ad8)",
-    text: "#2d0b25",
-    cardBg: "rgba(252, 245, 255, 0.9)"
-  },
-  "Red": {
-    primary: "#981007",
-    secondary: "#d62d20",
-    background: "linear-gradient(-45deg, #ffcdd2, #ff8a80, #ff5252, #ff1744)",
-    text: "#330e0b",
-    cardBg: "rgba(255, 245, 245, 0.9)"
-  },
-  "1989": {
-    primary: "#779bb7",
-    secondary: "#a8c6e0",
-    background: "linear-gradient(-45deg, #e3f2fd, #bbdefb, #90caf9, #64b5f6)",
-    text: "#0d2b44",
-    cardBg: "rgba(240, 248, 255, 0.9)"
-  },
-  "Reputation": {
-    primary: "#656565",
-    secondary: "#858585",
-    background: "linear-gradient(-45deg, #1a1a1a, #2d2d2d, #1a1a1a, #000000)",
-    text: "#e0e0e0",
-    cardBg: "rgba(30, 30, 30, 0.85)"
-  },
-  "Lover": {
-    primary: "#f6acc9",
-    secondary: "#ffd1dc",
-    background: "linear-gradient(-45deg, #ffebee, #ffcdd2, #f8bbd0, #f6acc9)",
-    text: "#4a1c2e",
-    cardBg: "rgba(255, 240, 245, 0.9)"
-  },
-  "folklore": {
-    primary: "#989898",
-    secondary: "#b5b5b5",
-    background: "linear-gradient(-45deg, #e0e0e0, #d0d0d0, #b0b0b0, #989898)",
-    text: "#1a1a1a",
-    cardBg: "rgba(245, 245, 245, 0.9)"
-  },
-  "evermore": {
-    primary: "#6c321f",
-    secondary: "#8b4513",
-    background: "linear-gradient(-45deg, #efebe9, #d7ccc8, #bcaaa4, #8b4513)",
-    text: "#2e1100",
-    cardBg: "rgba(245, 237, 230, 0.9)"
-  },
-  "Midnights": {
-    primary: "#5b6486",
-    secondary: "#7d87aa",
-    background: "linear-gradient(-45deg, #2b2d42, #3a3d5d, #4a4d7d, #5b6486)",
-    text: "#e0e0e0",
-    cardBg: "rgba(50, 52, 70, 0.85)"
-  },
-  "The Tortured Poets Department": {
-    primary: "#7a7975",
-    secondary: "#9e9d99",
-    background: "linear-gradient(-45deg, #e0e0e0, #b0b0b0, #888888, #7a7975)",
-    text: "#1a1a1a",
-    cardBg: "rgba(245, 245, 245, 0.9)"
-  }
-};
 const albums = [
   {
     title: "Taylor Swift",
@@ -689,7 +525,7 @@ const albums = [
     year: "2017",
     color: "#0d0d0d",
     songs: [
-      { title: "...Ready For It?", src: "Ready For It.mp3", lyrics: "Knew he was..." },
+      { title: "...Ready For It?", src: "...Ready For It.mp3", lyrics: "Knew he was..." },
       { title: "End Game ft. Ed Sheeran, Future", src: "End Game ft. Ed Sheeran, Future.mp3", lyrics: "I wanna be..." },
       { title: "I Did Something Bad", src: "I Did Something Bad.mp3", lyrics: "I never trust..." },
       { title: "Don't Blame Me", src: "Don’t Blame Me.mp3", lyrics: "Don't blame me..." },
@@ -848,18 +684,8 @@ const albums = [
     ]
   }
 ];
-  // Fonctions utilitaires
-  function hexToRgb(hex) {
-    hex = hex.replace('#', '');
-    const r = parseInt(hex.substring(0, 2), 16);
-    const g = parseInt(hex.substring(2, 4), 16);
-    const b = parseInt(hex.substring(4, 6), 16);
-    return { r, g, b };
-  }
-  document.addEventListener('DOMContentLoaded', function() {
-  // Charger le dernier thème utilisé
-  const lastAlbum = localStorage.getItem('lastAlbumTheme') || "Taylor Swift";
-  setThemeForAlbum(lastAlbum);
+
+document.addEventListener('DOMContentLoaded', function() {
   // Sélections d'éléments DOM
   const albumsContainer = document.getElementById('albums-container');
   const audioPlayer = document.getElementById('audioPlayer');
@@ -900,23 +726,18 @@ const albums = [
   function playSong(song, album) {
     currentSong = song;
     currentAlbum = album;
-  
-    try {
-      audioPlayer.src = song.src;
-      audioPlayer.play()
-        .then(() => {
-          nowPlayingTitle.textContent = song.title;
-          nowPlayingAlbum.textContent = `from ${album.title} (${album.year})`;
-          setThemeForAlbum(album.title);
-          localStorage.setItem('lastAlbumTheme', album.title);
-        })
-        .catch(error => {
-          console.error("Audio playback error:", error);
-          // Option: Passer à la chanson suivante en cas d'erreur
-        });
-    } catch (error) {
-      console.error("Error setting audio source:", error);
-    }
+    
+    audioPlayer.src = song.src;
+    audioPlayer.play()
+      .then(() => {
+        nowPlayingTitle.textContent = song.title;
+        nowPlayingAlbum.textContent = `from ${album.title} (${album.year})`;
+      })
+      .catch(error => {
+        console.error("Audio playback error:", error);
+        nowPlayingTitle.textContent = "Audio playback error";
+        nowPlayingAlbum.textContent = song.title;
+      });
   }
 
   // Afficher les paroles
@@ -1050,33 +871,6 @@ const albums = [
   // Initialisation
   renderAlbums();
 });
-  function setThemeForAlbum(albumTitle) {
-    const theme = albumThemes[albumTitle] || {
-      primary: "#6c5ce7",
-      secondary: "#00cec9",
-      background: "linear-gradient(-45deg, #a8e6cf, #dcedc1, #ffd3b6, #ffaaa5)",
-      text: "#2d3436",
-      cardBg: "rgba(255, 255, 255, 0.8)"
-    };
-
-    // Désactiver temporairement l'animation du fond
-    document.body.style.animation = 'none';
-    
-    const primaryRgb = hexToRgb(theme.primary);
-    
-    document.documentElement.style.setProperty('--theme-primary', theme.primary);
-    document.documentElement.style.setProperty('--theme-secondary', theme.secondary);
-    document.documentElement.style.setProperty('--theme-background', theme.background);
-    document.documentElement.style.setProperty('--theme-text', theme.text);
-    document.documentElement.style.setProperty('--theme-card-bg', theme.cardBg);
-    document.documentElement.style.setProperty('--theme-primary-rgb', `${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}`);
-    
-    // Réactiver l'animation après un court délai
-    setTimeout(() => {
-      document.body.style.animation = 'gradientBG 15s ease infinite';
-    }, 10);
-  }
-
 </script>
 </body>
 </html>
